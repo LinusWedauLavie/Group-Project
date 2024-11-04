@@ -15,5 +15,7 @@ public partial class MainMenu : Control
 		GetTree().ChangeSceneToFile("res://Map/Map_Test1.tscn");
 	}
 	
-
+	public void OnExitButtonPressed(){
+		GetTree().Quit();
+	}
 }
