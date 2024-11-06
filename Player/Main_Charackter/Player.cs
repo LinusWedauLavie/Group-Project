@@ -4,8 +4,7 @@ using System;
 public partial class Player : CharacterBody2D
 {
 
-	[Export]
-	public int speed {get;set;} = 400;
+	[Export] int speed = 250;
 
 	public void GetInput(){
 		Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");

@@ -1,15 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgv2o5a0n1auc"]
+[gd_scene load_steps=7 format=3 uid="uid://dgv2o5a0n1auc"]
 
 [ext_resource type="Script" path="res://Player/Main_Charackter/Player.cs" id="1_0k8ld"]
 [ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="2_k7c3j"]
+[ext_resource type="PackedScene" uid="uid://dlx4wu08bjmj8" path="res://Components/HealthComponents/health_component.tscn" id="3_wu1hk"]
+[ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="4_37gyk"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_up2uo"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ciqt8"]
+size = Vector2(18, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fyie"]
+size = Vector2(18, 26)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_0k8ld")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_up2uo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -18,3 +21,14 @@ zoom = Vector2(2, 2)
 position = Vector2(0, -1.78814e-06)
 scale = Vector2(0.140625, 0.203125)
 texture = ExtResource("2_k7c3j")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_wu1hk")]
+
+[node name="HitBoxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_37gyk")]
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+shape = SubResource("RectangleShape2D_ciqt8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3fyie")
