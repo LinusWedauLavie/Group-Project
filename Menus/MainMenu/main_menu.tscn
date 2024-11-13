@@ -89,4 +89,5 @@ theme_override_font_sizes/font_size = 24
 text = "Exit"
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Start_Button" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Options_Button" to="." method="OnOptionsButtonPressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Exit_Button" to="." method="OnExitButtonPressed"]
