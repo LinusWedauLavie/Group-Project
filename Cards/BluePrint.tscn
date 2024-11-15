@@ -6,13 +6,31 @@
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_7yfwp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(4.76837e-07, 0)
-scale = Vector2(0.164063, 0.114063)
+[node name="Panel" type="Panel" parent="."]
+offset_left = 373.0
+offset_top = 223.0
+offset_right = 557.0
+offset_bottom = 445.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel"]
+position = Vector2(91, 73)
+scale = Vector2(1.17969, 0.640625)
 texture = ExtResource("2_024wu")
 
-[node name="TextEdit" type="TextEdit" parent="Sprite2D"]
-offset_left = -60.9524
-offset_top = 70.137
-offset_right = 61.0476
-offset_bottom = 192.137
+[node name="TextEdit" type="TextEdit" parent="Panel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 119.0
+offset_right = 165.0
+offset_bottom = 207.0
+text = "Beschreibung der
+Karte und Effekt"
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 4.0
+offset_right = 165.0
+offset_bottom = 27.0
+text = "Name der Karte"
+horizontal_alignment = 2
