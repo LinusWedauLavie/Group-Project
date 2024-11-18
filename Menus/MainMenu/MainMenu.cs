@@ -12,10 +12,11 @@ public partial class MainMenu : Control
 
 	public void OnStartButtonPressed()
 	{
-		GetTree().ChangeSceneToFile("res://Map/Maptestthings/Map_Test1.tscn");
+		GetTree().ChangeSceneToFile("res://Map/Scenes/map.tscn");
 	}
 	
 	public void OnExitButtonPressed(){
 		GetTree().Quit();
+		
 	}
 }

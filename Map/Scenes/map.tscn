@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://vyqryb6cw716"]
+
+[ext_resource type="Script" path="res://Map/MapGenerator.cs" id="1_fir3t"]
+[ext_resource type="Texture2D" uid="uid://15842dhjlhju" path="res://Map/Rooms/Roomtest.png" id="2_uaoyt"]
+[ext_resource type="PackedScene" uid="uid://dgv2o5a0n1auc" path="res://Player/Main_Charackter/player.tscn" id="2_vv6gr"]
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_fir3t")
+
+[node name="StartRoom" type="Sprite2D" parent="."]
+texture = ExtResource("2_uaoyt")
+
+[node name="Player" parent="." instance=ExtResource("2_vv6gr")]
