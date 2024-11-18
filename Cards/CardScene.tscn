@@ -1,30 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://dy2uwuq57nb6f"]
+[gd_scene load_steps=3 format=3 uid="uid://d3to08weux3b"]
 
+[ext_resource type="Script" path="res://Cards/CardUI.cs" id="1_3kmg8"]
 [ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="2_024wu"]
 
 [node name="Panel" type="Panel"]
 offset_right = 258.0
 offset_bottom = 363.0
+script = ExtResource("1_3kmg8")
 
-[node name="CardName" type="Label" parent="."]
+[node name="lblCardName" type="Label" parent="."]
 layout_mode = 0
 offset_left = 17.0
 offset_top = 16.0
 offset_right = 238.0
 offset_bottom = 55.0
-text = "Name der Karte"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="CardBeschreibung" type="Label" parent="."]
+[node name="lblCardBeschreibung" type="Label" parent="."]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 235.0
 offset_right = 242.0
 offset_bottom = 348.0
-text = "Beschreibung der Karte"
 
-[node name="CardBild" type="TextureRect" parent="."]
+[node name="cardBild" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 71.0
