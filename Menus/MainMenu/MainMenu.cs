@@ -19,4 +19,9 @@ public partial class MainMenu : Control
 		GetTree().Quit();
 		
 	}
+
+	public void OnOptionsButtonPressed()
+	{
+		GetTree().ChangeSceneToFile("res://Menus/OptionsMenu/OptionsMenu.tscn");
+	}
 }

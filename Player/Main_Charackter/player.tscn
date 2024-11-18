@@ -5,14 +5,17 @@
 [ext_resource type="PackedScene" uid="uid://dlx4wu08bjmj8" path="res://Components/HealthComponents/health_component.tscn" id="3_wu1hk"]
 [ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="4_37gyk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ciqt8"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fyie"]
 size = Vector2(18, 26)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fyie"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ciqt8"]
 size = Vector2(18, 26)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_0k8ld")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3fyie")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -29,6 +32,3 @@ healthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
 shape = SubResource("RectangleShape2D_ciqt8")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3fyie")

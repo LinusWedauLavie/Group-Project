@@ -10,9 +10,10 @@ public partial class HealthComponent : Node2D
 		health = max_Health;
 	}
 
-	public void damage(int attackDamage){
+	public void takeDamage(int attackDamage){
 		health -= attackDamage;
 		if(health <= 0){
+			
 			//TODO death screen
 			GetParent().QueueFree();
 		}
