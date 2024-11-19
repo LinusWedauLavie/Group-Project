@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://8jit6yv30sic"]
+[gd_scene load_steps=7 format=3 uid="uid://8jit6yv30sic"]
 
+[ext_resource type="Script" path="res://Enemys/EnemyMovementToPlayer.cs" id="1_1x4w5"]
 [ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="1_vuyn2"]
 [ext_resource type="PackedScene" uid="uid://dlx4wu08bjmj8" path="res://Components/HealthComponents/health_component.tscn" id="2_muqxd"]
 [ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="3_b4rkm"]
@@ -19,6 +20,7 @@ animations = [{
 }]
 
 [node name="Ratte_Enemy" type="CharacterBody2D"]
+script = ExtResource("1_1x4w5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_seac4")

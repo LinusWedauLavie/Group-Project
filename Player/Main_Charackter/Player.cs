@@ -15,6 +15,9 @@ public partial class Player : CharacterBody2D
 
     }
 
+	public void TakeDamage(int schaden){
+		//Health - schaden;
+	}
     public override void _PhysicsProcess(double delta)
     {
 		GetInput();
