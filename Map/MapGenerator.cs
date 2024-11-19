@@ -5,6 +5,7 @@ using System;
 public partial class MapGenerator : Node2D
 {
 	public Node2D room1;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -24,6 +25,12 @@ public partial class MapGenerator : Node2D
 		{
 			Sprite2D Map = GetNode<Sprite2D>("StartRoom");
 			Map.AddChild(room1);
+			
+			Vector2I oben = new Vector2I();
+			oben.X = 0;
+			oben.Y = -324;
+			room1.Position = Map.Position + oben;
+			
 		}
 		if(Convert.ToInt64(seed[1].ToString()) < 128)
 		{
