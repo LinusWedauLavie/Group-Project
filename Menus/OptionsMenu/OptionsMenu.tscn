@@ -1,0 +1,209 @@
+[gd_scene load_steps=4 format=3 uid="uid://bm6s5he23xmd7"]
+
+[ext_resource type="Script" path="res://Menus/OptionsMenu/OptionsMenu.cs" id="1_1y754"]
+[ext_resource type="Script" path="res://Menus/OptionsMenu/Graphics/GraphicsSetting.cs" id="2_0s08y"]
+
+[sub_resource type="Theme" id="Theme_vqwef"]
+
+[node name="Options_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1y754")
+
+[node name="TabController" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_vqwef")
+tab_alignment = 1
+current_tab = 1
+
+[node name="Graphics" type="TabBar" parent="TabController"]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+script = ExtResource("2_0s08y")
+metadata/_tab_index = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="TabController/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabController/Graphics/PanelContainer"]
+layout_mode = 2
+
+[node name="Saperator" type="Control" parent="TabController/Graphics/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+
+[node name="Resolution" type="HBoxContainer" parent="TabController/Graphics/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Saperator1" type="Control" parent="TabController/Graphics/PanelContainer/VBoxContainer/Resolution"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabController/Graphics/PanelContainer/VBoxContainer/Resolution"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "Resolution"
+
+[node name="ResolutionOptionButton" type="OptionButton" parent="TabController/Graphics/PanelContainer/VBoxContainer/Resolution"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Saperator2" type="Control" parent="TabController/Graphics/PanelContainer/VBoxContainer/Resolution"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Saperator1" type="Control" parent="TabController/Graphics/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+
+[node name="Window" type="HBoxContainer" parent="TabController/Graphics/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Saperator1" type="Control" parent="TabController/Graphics/PanelContainer/VBoxContainer/Window"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabController/Graphics/PanelContainer/VBoxContainer/Window"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "Window"
+
+[node name="WindowOptionButton" type="OptionButton" parent="TabController/Graphics/PanelContainer/VBoxContainer/Window"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Saperator2" type="Control" parent="TabController/Graphics/PanelContainer/VBoxContainer/Window"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Sounds" type="TabBar" parent="TabController"]
+layout_mode = 2
+tab_alignment = 1
+metadata/_tab_index = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="TabController/Sounds"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SoundBars" type="VBoxContainer" parent="TabController/Sounds/PanelContainer"]
+layout_mode = 2
+
+[node name="MasterVolume" type="HBoxContainer" parent="TabController/Sounds/PanelContainer/SoundBars"]
+layout_mode = 2
+
+[node name="Saperator1" type="Control" parent="TabController/Sounds/PanelContainer/SoundBars/MasterVolume"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabController/Sounds/PanelContainer/SoundBars/MasterVolume"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Master Volume"
+
+[node name="MasterVolume2" type="HBoxContainer" parent="TabController/Sounds/PanelContainer/SoundBars"]
+layout_mode = 2
+
+[node name="Saperator2" type="Control" parent="TabController/Sounds/PanelContainer/SoundBars/MasterVolume2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="TabController/Sounds/PanelContainer/SoundBars/MasterVolume2"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Saperator3" type="Control" parent="TabController/Sounds/PanelContainer/SoundBars/MasterVolume2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="SFX" type="HBoxContainer" parent="TabController/Sounds/PanelContainer/SoundBars"]
+layout_mode = 2
+
+[node name="Saperator1" type="Control" parent="TabController/Sounds/PanelContainer/SoundBars/SFX"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabController/Sounds/PanelContainer/SoundBars/SFX"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "SFX"
+
+[node name="SFX2" type="HBoxContainer" parent="TabController/Sounds/PanelContainer/SoundBars"]
+layout_mode = 2
+
+[node name="Saperator2" type="Control" parent="TabController/Sounds/PanelContainer/SoundBars/SFX2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="TabController/Sounds/PanelContainer/SoundBars/SFX2"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Saperator3" type="Control" parent="TabController/Sounds/PanelContainer/SoundBars/SFX2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Music" type="HBoxContainer" parent="TabController/Sounds/PanelContainer/SoundBars"]
+layout_mode = 2
+
+[node name="Saperator1" type="Control" parent="TabController/Sounds/PanelContainer/SoundBars/Music"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabController/Sounds/PanelContainer/SoundBars/Music"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Music"
+
+[node name="Music2" type="HBoxContainer" parent="TabController/Sounds/PanelContainer/SoundBars"]
+layout_mode = 2
+
+[node name="Saperator2" type="Control" parent="TabController/Sounds/PanelContainer/SoundBars/Music2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="TabController/Sounds/PanelContainer/SoundBars/Music2"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Saperator3" type="Control" parent="TabController/Sounds/PanelContainer/SoundBars/Music2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Controls" type="TabBar" parent="TabController"]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+metadata/_tab_index = 2
+
+[node name="Credits" type="TabBar" parent="TabController"]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+metadata/_tab_index = 3
+
+[connection signal="item_selected" from="TabController/Graphics/PanelContainer/VBoxContainer/Resolution/ResolutionOptionButton" to="TabController/Graphics" method="OnResulotionSelected"]
+[connection signal="item_selected" from="TabController/Graphics/PanelContainer/VBoxContainer/Window/WindowOptionButton" to="TabController/Graphics" method="OnWindowModeSelected"]
