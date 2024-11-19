@@ -10,7 +10,6 @@ public partial class DeckBuilderSzene : Control
 	{
 		//Den Container finden, der die Karten darstellen soll
 		handContainer = GetNode<VBoxContainer>("HandContainer");
-		GD.Print(handContainer != null ? "Container dound" : "Container not found");
 
 		//Beispielkarte erstellen und anzeigen
 		Card exempleCard = new Card("Fireball", "Spell", 0, 0, "Deals 5 damage to an enemy.");
@@ -19,17 +18,13 @@ public partial class DeckBuilderSzene : Control
 
 	private void AddCardToHand(Card card)
 	{
-		GD.Print("dfgh");
 		//Lade die Karten-Szene
 		PackedScene CardScene = (PackedScene)GD.Load("res://Cards/CardScene.tscn");
-		GD.Print(CardScene != null ? "Scene loaded succesfull" : "Failed to load scene");
-		if (card != null)
-		{
-			GD.Print("Halts maul");
-		}
 
 		//Instanziiere eine neue Karte
 		CardUI cardUI = (CardUI)CardScene.Instantiate();
+
+		AddChild(cardUI);
 
 		//Setze die Kartendaten
 		cardUI.SetCard(card);

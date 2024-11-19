@@ -1,11 +1,13 @@
 using Godot;
 using System;
 
+
 public partial class CardUI : Panel
 {
 	private Label lblCardName; //wird nicht gefunden
 	private Label lblCardBeschreibung;
 	private TextureRect cardBild;
+	private bool IsInitialized = false;
 
 
 
@@ -17,17 +19,22 @@ public partial class CardUI : Panel
 		lblCardName = GetNode<Label>("lblCardName");
 		lblCardBeschreibung = GetNode<Label>("lblCardBeschreibung");
 
-		if (!TryGetNode("NameLabel", out lblCardName))
-			GD.PrintErr("NameLabel node is missing!");
-
-		GD.Print(lblCardName != null ? "NameLabel found" : "NameLabel not found");
-		GD.Print(lblCardBeschreibung != null ? "DescriptionLabel found" : "DescriptionLabel not found");
+		GD.Print(lblCardName != null ? "lblCardName found" : "lblCardName is null");
+		GD.Print(lblCardBeschreibung != null ? "lblCardBeschreibung found" : "lblCardBeschreibung is null");
 
 		cardBild = GetNode<TextureRect>("cardBild");
+
+		  IsInitialized = true; // Markiere als fertig initialisiert
 	}
 
 	public void SetCard(Card card)
 	{
+		if (!IsInitialized)
+        {
+            GD.PrintErr("SetCard aufgerufen, bevor CardUI initialisiert wurde!");
+            return;
+        }
+
 		if (lblCardName == null || lblCardBeschreibung == null)
 		{
 			GD.PrintErr("UI elements are not initializied");
