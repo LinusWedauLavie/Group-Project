@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Enemys/EnemyMovementToPlayer.cs" id="1_1x4w5"]
 [ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="1_vuyn2"]
-[ext_resource type="PackedScene" uid="uid://dlx4wu08bjmj8" path="res://Components/HealthComponents/HealthComponent.tscn" id="2_muqxd"]
+[ext_resource type="PackedScene" path="res://Components/HealthComponents/HealthComponent.tscn" id="2_muqxd"]
 [ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="3_b4rkm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_seac4"]
