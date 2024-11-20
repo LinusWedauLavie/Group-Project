@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bm6s5he23xmd7"]
+[gd_scene load_steps=5 format=3 uid="uid://bm6s5he23xmd7"]
 
 [ext_resource type="Script" path="res://Menus/OptionsMenu/OptionsMenu.cs" id="1_1y754"]
-[ext_resource type="Script" path="res://Menus/OptionsMenu/Graphics/GraphicsSetting.cs" id="2_0s08y"]
+[ext_resource type="Script" path="res://Menus/OptionsMenu/Graphics/Resolution.cs" id="2_sudp1"]
+[ext_resource type="Script" path="res://Menus/OptionsMenu/Graphics/Window.cs" id="3_oe45l"]
 
 [sub_resource type="Theme" id="Theme_vqwef"]
 
@@ -23,13 +24,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_vqwef")
 tab_alignment = 1
-current_tab = 1
+current_tab = 2
 
 [node name="Graphics" type="TabBar" parent="TabController"]
 visible = false
 layout_mode = 2
 tab_alignment = 1
-script = ExtResource("2_0s08y")
 metadata/_tab_index = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="TabController/Graphics"]
@@ -49,6 +49,7 @@ layout_mode = 2
 
 [node name="Resolution" type="HBoxContainer" parent="TabController/Graphics/PanelContainer/VBoxContainer"]
 layout_mode = 2
+script = ExtResource("2_sudp1")
 
 [node name="Saperator1" type="Control" parent="TabController/Graphics/PanelContainer/VBoxContainer/Resolution"]
 custom_minimum_size = Vector2(100, 0)
@@ -74,6 +75,7 @@ layout_mode = 2
 
 [node name="Window" type="HBoxContainer" parent="TabController/Graphics/PanelContainer/VBoxContainer"]
 layout_mode = 2
+script = ExtResource("3_oe45l")
 
 [node name="Saperator1" type="Control" parent="TabController/Graphics/PanelContainer/VBoxContainer/Window"]
 custom_minimum_size = Vector2(100, 0)
@@ -94,6 +96,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="Sounds" type="TabBar" parent="TabController"]
+visible = false
 layout_mode = 2
 tab_alignment = 1
 metadata/_tab_index = 1
@@ -194,7 +197,6 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="Controls" type="TabBar" parent="TabController"]
-visible = false
 layout_mode = 2
 tab_alignment = 1
 metadata/_tab_index = 2
@@ -205,5 +207,5 @@ layout_mode = 2
 tab_alignment = 1
 metadata/_tab_index = 3
 
-[connection signal="item_selected" from="TabController/Graphics/PanelContainer/VBoxContainer/Resolution/ResolutionOptionButton" to="TabController/Graphics" method="OnResulotionSelected"]
-[connection signal="item_selected" from="TabController/Graphics/PanelContainer/VBoxContainer/Window/WindowOptionButton" to="TabController/Graphics" method="OnWindowModeSelected"]
+[connection signal="item_selected" from="TabController/Graphics/PanelContainer/VBoxContainer/Resolution/ResolutionOptionButton" to="TabController/Graphics/PanelContainer/VBoxContainer/Resolution" method="OnResulotionSelected"]
+[connection signal="item_selected" from="TabController/Graphics/PanelContainer/VBoxContainer/Window/WindowOptionButton" to="TabController/Graphics/PanelContainer/VBoxContainer/Window" method="OnWindowModeSelected"]
