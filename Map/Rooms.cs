@@ -10,12 +10,13 @@ public partial class Rooms : Node2D
     {
         mainCam = GetParent().GetParent().GetNode<Camera2D>("MainCam");
 
-        Area2D area = GetNode<Area2D>("Area2D"); 
+        Area2D area = GetNode<Area2D>("LeftBorder"); 
         area.AreaEntered += BorderEntered; // Signal 'area_entered' verbinden
     }
 
     public void BorderEntered(Area2D area)
     {
+        //TODO es übergibt das, was in die area2d rein gkommen ist und nicht welche border ausgelöst wurde
         GD.Print("Area entered: " + area.Name); 
 
         switch (area.Name)

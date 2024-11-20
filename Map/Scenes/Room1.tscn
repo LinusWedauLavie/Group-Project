@@ -22,6 +22,7 @@ script = ExtResource("1_blgwh")
 texture = ExtResource("1_eh3ap")
 
 [node name="LeftBorder" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder"]
 position = Vector2(-281.5, -5)
@@ -29,6 +30,7 @@ shape = SubResource("RectangleShape2D_ak681")
 
 [node name="TopBorder" type="Area2D" parent="."]
 position = Vector2(148, -56)
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopBorder"]
 position = Vector2(135, 55.5)
@@ -36,12 +38,14 @@ shape = SubResource("RectangleShape2D_26xjf")
 
 [node name="RightBorder" type="Area2D" parent="."]
 position = Vector2(237, 1)
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightBorder"]
 position = Vector2(-236, -154)
 shape = SubResource("RectangleShape2D_qakqk")
 
 [node name="BottomBorder" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBorder"]
 position = Vector2(0.5, 152.5)

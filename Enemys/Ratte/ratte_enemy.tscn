@@ -20,6 +20,8 @@ animations = [{
 }]
 
 [node name="Ratte_Enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 11
 script = ExtResource("1_1x4w5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -32,8 +34,10 @@ sprite_frames = SubResource("SpriteFrames_ny7ny")
 [node name="HealthComponent" parent="." instance=ExtResource("2_muqxd")]
 max_Health = 20
 
-[node name="Area2D" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_b4rkm")]
+[node name="HitBoxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_b4rkm")]
+collision_layer = 8
+collision_mask = 8
 healthComponent = NodePath("../HealthComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
 shape = SubResource("RectangleShape2D_seac4")

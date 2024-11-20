@@ -8,10 +8,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fyie"]
 size = Vector2(18, 26)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ciqt8"]
-size = Vector2(18, 26)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a2pxl"]
+size = Vector2(20, 28)
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 3
 script = ExtResource("1_0k8ld")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -25,7 +26,9 @@ texture = ExtResource("2_k7c3j")
 [node name="HealthComponent" parent="." instance=ExtResource("3_wu1hk")]
 
 [node name="HitBoxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_37gyk")]
+collision_layer = 2
+collision_mask = 2
 healthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
-shape = SubResource("RectangleShape2D_ciqt8")
+shape = SubResource("RectangleShape2D_a2pxl")
