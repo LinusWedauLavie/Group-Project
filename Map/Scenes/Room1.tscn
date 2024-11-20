@@ -1,57 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://oj01bljhxi1f"]
+[gd_scene load_steps=3 format=3 uid="uid://oj01bljhxi1f"]
 
-[ext_resource type="Script" path="res://Map/Rooms.cs" id="1_blgwh"]
 [ext_resource type="Texture2D" uid="uid://15842dhjlhju" path="res://Map/Rooms/Roomtest.png" id="1_eh3ap"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ak681"]
-size = Vector2(11, 104)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_26xjf"]
-size = Vector2(8, 105)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qakqk"]
-size = Vector2(156, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iv7ck"]
-size = Vector2(141, 17)
+[ext_resource type="PackedScene" uid="uid://dwu8rxeqjalxd" path="res://Map/Rooms/CamSwitchSetup.tscn" id="2_b1cwt"]
 
 [node name="Room1" type="Node2D"]
-script = ExtResource("1_blgwh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_eh3ap")
 
-[node name="LeftBorder" type="Area2D" parent="."]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder"]
-position = Vector2(-281.5, -5)
-shape = SubResource("RectangleShape2D_ak681")
-
-[node name="TopBorder" type="Area2D" parent="."]
-position = Vector2(148, -56)
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TopBorder"]
-position = Vector2(135, 55.5)
-shape = SubResource("RectangleShape2D_26xjf")
-
-[node name="RightBorder" type="Area2D" parent="."]
-position = Vector2(237, 1)
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBorder"]
-position = Vector2(-236, -154)
-shape = SubResource("RectangleShape2D_qakqk")
-
-[node name="BottomBorder" type="Area2D" parent="."]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBorder"]
-position = Vector2(0.5, 152.5)
-shape = SubResource("RectangleShape2D_iv7ck")
-
-[connection signal="area_entered" from="LeftBorder" to="." method="BorderEntered"]
-[connection signal="area_entered" from="TopBorder" to="." method="BorderEntered"]
-[connection signal="area_entered" from="RightBorder" to="." method="BorderEntered"]
-[connection signal="area_entered" from="BottomBorder" to="." method="BorderEntered"]
+[node name="Node2D" parent="." instance=ExtResource("2_b1cwt")]
