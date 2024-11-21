@@ -1,44 +1,50 @@
 using System.Collections.Generic;
 using System;
+using Godot;
+using System.Linq;
 
 public class Deck
 {
-    public List<Card> Cards { get; private set; } = new List<Card>();
+    public List<Card> cards;
 
-    public Deck(List<Card> initialCards)
+    //Konstruktor mit optionaler Parameterliste
+    public Deck(List<Card> initialCards = null)
     {
-        Cards.AddRange(initialCards);
+        //Falls keine Karten übergeben werden, wird eine Leere Liste verwendet
+        cards = initialCards ?? new List<Card>();
     }
 
     public void Shuffle()
     {
         Random rng = new Random();
-        int n = Cards.Count;
-        while (n > 1)
-        {
-            n--;
-            int k = rng.Next(n + 1);
-            Card value = Cards[k];
-            Cards[k] = Cards[n];
-            Cards[n] = value;
-        }
+        cards = cards.OrderBy(c => rng.Next()).ToList();
     }
 
     public Card DrawCard()
     {
-        if (Cards.Count == 0) return null;
-        Card drawnCard = Cards[0];
-        Cards.RemoveAt(0);
+        if (cards.Count == 0)
+        {
+            GD.PrintErr("Deck is empty!");
+            return null;
+        }
+
+        Card drawnCard = cards[0];
+        cards.RemoveAt(0);
         return drawnCard;
     }
 
     public void AddCard(Card card)
     {
-        Cards.Add(card);
+        cards.Add(card);
     }
 
     public void RemoveCard(Card card)
     {
-        Cards.Remove(card);
+        cards.Remove(card);
+    }
+
+    public List<Card> GetCards()
+    {
+        return cards;
     }
 }

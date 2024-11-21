@@ -4,52 +4,54 @@ using System;
 
 public partial class CardUI : Panel
 {
-	private Label lblCardName; //wird nicht gefunden
+	private Label lblCardName;
 	private Label lblCardBeschreibung;
 	private TextureRect cardBild;
-	private bool IsInitialized = false;
-
+	private TextureRect backSideBild;
 
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		//Nodes in der Szene finden
-		//Diese referenzen könnten null sein
-		lblCardName = GetNode<Label>("lblCardName");
-		lblCardBeschreibung = GetNode<Label>("lblCardBeschreibung");
+		lblCardName = GetNode<Label>("frontSide/lblCardName");
+		lblCardBeschreibung = GetNode<Label>("frontSide/lblCardBeschreibung");
+		cardBild = GetNode<TextureRect>("frontSide/cardBild");
+		backSideBild = GetNode<TextureRect>("frontSide/backSideBild");
 
-		GD.Print(lblCardName != null ? "lblCardName found" : "lblCardName is null");
-		GD.Print(lblCardBeschreibung != null ? "lblCardBeschreibung found" : "lblCardBeschreibung is null");
-
-		cardBild = GetNode<TextureRect>("cardBild");
-
-		  IsInitialized = true; // Markiere als fertig initialisiert
+		//Standardmäßig nur die Rückseite anzeigen
+		ShowBackSide();
+		
 	}
 
 	public void SetCard(Card card)
 	{
-		if (!IsInitialized)
-        {
-            GD.PrintErr("SetCard aufgerufen, bevor CardUI initialisiert wurde!");
-            return;
-        }
-
-		if (lblCardName == null || lblCardBeschreibung == null)
-		{
-			GD.PrintErr("UI elements are not initializied");
-			return;
-		}
-
-		lblCardName.Text = card.Name; //Fehler tritt hier auf, wenn nameLabel null ist
+		lblCardName.Text = card.Name;
 		lblCardBeschreibung.Text = card.Description;
 
 		//cardImage.Texture = GD.Load<Texture>(card.ImagePath);
 	}
 
-	private bool TryGetNode(string v, out Label cardName)
+	public void ShowFrontSide()
 	{
-		throw new NotImplementedException();
+		//Vorderseite anzeigen
+		cardBild.Visible = true;
+		lblCardName.Visible = true;
+		lblCardBeschreibung.Visible = true;
+
+		//Rückseite ausblenden
+		backSideBild.Visible = false;
+	}
+
+	public void ShowBackSide()
+	{
+		//Rückseite anzeigen
+		cardBild.Visible = false;
+		lblCardName.Visible = false;
+		lblCardBeschreibung.Visible = false;
+
+		//Rückseite einblenden
+		backSideBild.Visible = true;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,4 +60,3 @@ public partial class CardUI : Panel
 
 	}
 }
-
