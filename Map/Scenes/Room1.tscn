@@ -8,4 +8,4 @@
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_eh3ap")
 
-[node name="Node2D" parent="." instance=ExtResource("2_b1cwt")]
+[node name="CamSwitch" parent="." instance=ExtResource("2_b1cwt")]

@@ -4,14 +4,17 @@ using System;
 
 public partial class MapGenerator : Node2D
 {
-	public Node2D room1;
-	
+	public Node2D lastRoom;
+	public Node2D shouldPlacedRoom;
+	public Node2D Room1;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		room1 = (Node2D)ResourceLoader.Load<PackedScene>("res://Map/Scenes/Room1.tscn").Instantiate();
-		
+		Room1 = (Node2D)ResourceLoader.Load<PackedScene>("res://Map/Scenes/Room1.tscn").Instantiate();
+		lastRoom = GetNode<Node2D>("StartRoom");
+		shouldPlacedRoom = Room1;
 		Generator();
+		
 	}
 		
 	public void Generator ()
@@ -21,26 +24,26 @@ public partial class MapGenerator : Node2D
 		byte[] seed = new byte[10];
 		random.NextBytes(seed);
 		
-		if (Convert.ToInt64(seed[0].ToString()) < 128)
+		if (Convert.ToInt64(seed[0].ToString()) < 575)
 		{
-			Sprite2D Map = GetNode<Sprite2D>("StartRoom");
-			Map.AddChild(room1);
-			
 			Vector2I oben = new Vector2I();
 			oben.X = 0;
 			oben.Y = -324;
-			room1.Position = Map.Position + oben;
+			shouldPlacedRoom.Position = lastRoom.Position + oben;
+			lastRoom.AddChild(shouldPlacedRoom);
+			lastRoom = shouldPlacedRoom;
+			
 			
 		}
-		if(Convert.ToInt64(seed[2].ToString()) <= 576)
+		if(Convert.ToInt64(seed[2].ToString()) <= 128)
 		{
-			Sprite2D Map = GetNode<Sprite2D>("StartRoom");
-			Map.AddChild(room1);
 			
 			Vector2I left = new Vector2I();
 			left.X = 576;
 			left.Y = 0;
-			room1.Position = Map.Position + left;
+			shouldPlacedRoom.Position = lastRoom.Position + left;
+			lastRoom.AddChild(shouldPlacedRoom);
+			lastRoom = shouldPlacedRoom;
 		}
 		if(Convert.ToInt64(seed[2].ToString()) < 128)
 		{

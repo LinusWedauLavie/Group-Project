@@ -4,11 +4,15 @@ using System;
 public partial class CamSwitch : Node2D
 {
     public Camera2D mainCam;
+    public CharacterBody2D player;
+    public Vector2 addPlayerPosition;
+    public Vector2 addCameraPosition;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        mainCam = GetParent().GetNode<Camera2D>("MainCam");
+        player = GetParent().GetNode<CharacterBody2D>("/root/Map/Player");
+        mainCam = GetParent().GetNode<Camera2D>("/root/Map/MainCam");
         GD.Print("sdfkj");
     }
 
@@ -21,20 +25,32 @@ public partial class CamSwitch : Node2D
         switch (test)
         {
             case "LeftBorder":
-                Vector2 left = new Vector2(-576, 0);
-                mainCam.Position = left;
+                addCameraPosition.X = -576;
+                addCameraPosition.Y = 0;
+                mainCam.Position += addCameraPosition;
+                addPlayerPosition.X = -40; 
+                player.GlobalPosition += addPlayerPosition;
                 break;
             case "TopBorder":
-                Vector2 top = new Vector2(0, -324);
-                mainCam.Position = top;
+                addCameraPosition.Y = -324;
+                addCameraPosition.X = 0;
+                mainCam.Position += addCameraPosition;
+                addPlayerPosition.Y = -40; 
+                player.GlobalPosition += addPlayerPosition;
                 break;
             case "RightBorder":
-                Vector2 right = new Vector2(576, 0);
-                mainCam.Position = right;
+                addCameraPosition.X = 576;
+                addCameraPosition.Y = 0;
+                mainCam.Position += addCameraPosition;
+                addPlayerPosition.X = 40; 
+                player.GlobalPosition += addPlayerPosition;
                 break;
             case "BottomBorder":
-                Vector2 bottom = new Vector2(0, 324);
-                mainCam.Position = bottom;
+                addCameraPosition.Y = 324;
+                addCameraPosition.X = 0;
+                mainCam.Position += addCameraPosition;
+                addPlayerPosition.Y += 40; 
+                player.GlobalPosition += addPlayerPosition;
                 break;
         }
     }
