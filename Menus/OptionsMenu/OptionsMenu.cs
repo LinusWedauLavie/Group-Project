@@ -12,4 +12,9 @@ public partial class OptionsMenu : Control
 	public override void _Process(double delta)
 	{
 	}
+
+	public void OnBackButtonPressed()
+	{
+		GetTree().ChangeSceneToFile("res://Menus/MainMenu/main_menu.tscn");
+	}
 }

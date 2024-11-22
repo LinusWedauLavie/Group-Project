@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgv2o5a0n1auc"]
+[gd_scene load_steps=6 format=3 uid="uid://dgv2o5a0n1auc"]
 
 [ext_resource type="Script" path="res://Player/Main_Charackter/Player.cs" id="1_0k8ld"]
 [ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="2_k7c3j"]
@@ -8,11 +8,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fyie"]
 size = Vector2(18, 26)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a2pxl"]
-size = Vector2(20, 28)
-
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 3
+collision_mask = 4
 script = ExtResource("1_0k8ld")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -27,8 +24,8 @@ texture = ExtResource("2_k7c3j")
 
 [node name="HitBoxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_37gyk")]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
 healthComponent = NodePath("../HealthComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
-shape = SubResource("RectangleShape2D_a2pxl")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBoxComponent"]
+shape = SubResource("RectangleShape2D_3fyie")

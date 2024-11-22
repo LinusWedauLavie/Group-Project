@@ -207,5 +207,15 @@ layout_mode = 2
 tab_alignment = 1
 metadata/_tab_index = 3
 
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 487.0
+offset_top = 585.0
+offset_right = 668.0
+offset_bottom = 647.0
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
 [connection signal="item_selected" from="TabController/Graphics/PanelContainer/VBoxContainer/Resolution/ResolutionOptionButton" to="TabController/Graphics/PanelContainer/VBoxContainer/Resolution" method="OnResulotionSelected"]
 [connection signal="item_selected" from="TabController/Graphics/PanelContainer/VBoxContainer/Window/WindowOptionButton" to="TabController/Graphics/PanelContainer/VBoxContainer/Window" method="OnWindowModeSelected"]
+[connection signal="pressed" from="BackButton" to="." method="OnBackButtonPressed"]

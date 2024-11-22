@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbrb4qkbaq7jm"]
+
+[ext_resource type="Script" path="res://Enemys/EnemyWeapon.cs" id="1_x0jg7"]
+
+[node name="AttackComponentEnemy" type="Area2D"]
+script = ExtResource("1_x0jg7")
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="." to="." method="AreaEnetred"]
+[connection signal="area_exited" from="." to="." method="AreaExited"]
+[connection signal="timeout" from="AttackTimer" to="." method="TimerTimeout"]
