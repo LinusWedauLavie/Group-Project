@@ -1,25 +1,24 @@
 using Godot;
 using System;
 
-public partial class Rooms : Node2D
+public partial class CamSwitch : Node2D
 {
     public Camera2D mainCam;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        mainCam = GetParent().GetParent().GetNode<Camera2D>("MainCam");
-
-        Area2D area = GetNode<Area2D>("LeftBorder"); 
-        area.AreaEntered += BorderEntered; // Signal 'area_entered' verbinden
+        mainCam = GetParent().GetNode<Camera2D>("MainCam");
+        GD.Print("sdfkj");
     }
 
-    public void BorderEntered(Area2D area)
+
+    public void BodyEntered(Node2D area, string test)
     {
         //TODO es übergibt das, was in die area2d rein gkommen ist und nicht welche border ausgelöst wurde
-        GD.Print("Area entered: " + area.Name); 
+        GD.Print("body entered: " + test); 
 
-        switch (area.Name)
+        switch (test)
         {
             case "LeftBorder":
                 Vector2 left = new Vector2(-576, 0);

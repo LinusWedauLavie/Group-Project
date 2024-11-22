@@ -32,9 +32,15 @@ public partial class MapGenerator : Node2D
 			room1.Position = Map.Position + oben;
 			
 		}
-		if(Convert.ToInt64(seed[1].ToString()) < 128)
+		if(Convert.ToInt64(seed[2].ToString()) <= 576)
 		{
-			//Dann soll ein raum nach links gebaut werden
+			Sprite2D Map = GetNode<Sprite2D>("StartRoom");
+			Map.AddChild(room1);
+			
+			Vector2I left = new Vector2I();
+			left.X = 576;
+			left.Y = 0;
+			room1.Position = Map.Position + left;
 		}
 		if(Convert.ToInt64(seed[2].ToString()) < 128)
 		{

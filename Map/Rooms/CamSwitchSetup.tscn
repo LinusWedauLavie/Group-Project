@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwu8rxeqjalxd"]
+
+[ext_resource type="Script" path="res://Map/CamSwitch.cs" id="1_7inos"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_btw61"]
+size = Vector2(11, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vlahm"]
+size = Vector2(8, 105)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c532e"]
+size = Vector2(156, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l7voo"]
+size = Vector2(141, 17)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_7inos")
+
+[node name="LeftBorder" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder"]
+position = Vector2(-281.5, -5)
+shape = SubResource("RectangleShape2D_btw61")
+
+[node name="TopBorder" type="Area2D" parent="."]
+position = Vector2(148, -56)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopBorder"]
+position = Vector2(135, 55.5)
+shape = SubResource("RectangleShape2D_vlahm")
+
+[node name="RightBorder" type="Area2D" parent="."]
+position = Vector2(237, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBorder"]
+position = Vector2(-236, -154)
+shape = SubResource("RectangleShape2D_c532e")
+
+[node name="BottomBorder" type="Area2D" parent="."]
+collision_layer = 15
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBorder"]
+position = Vector2(0.5, 152.5)
+shape = SubResource("RectangleShape2D_l7voo")
+
+[connection signal="body_entered" from="LeftBorder" to="." method="BodyEntered" binds= ["LeftBorder"]]
+[connection signal="body_entered" from="TopBorder" to="." method="BodyEntered" binds= ["TopBorder"]]
+[connection signal="body_entered" from="RightBorder" to="." method="BodyEntered" binds= ["RightBorder"]]
+[connection signal="body_entered" from="BottomBorder" to="." method="BodyEntered" binds= ["BottomBorder"]]
