@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bobclqjrb7ypk"]
+[gd_scene load_steps=3 format=3 uid="uid://h0f4vw3kw5g4"]
 
 [ext_resource type="Texture2D" uid="uid://15842dhjlhju" path="res://Map/Rooms/Roomtest.png" id="1_icywa"]
 [ext_resource type="PackedScene" uid="uid://dwu8rxeqjalxd" path="res://Map/Rooms/CamSwitchSetup.tscn" id="2_qudkk"]

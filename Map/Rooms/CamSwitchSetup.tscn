@@ -22,7 +22,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder"]
-position = Vector2(-276.25, 0)
+position = Vector2(-282, 0)
 shape = SubResource("RectangleShape2D_btw61")
 
 [node name="TopBorder" type="Area2D" parent="."]
@@ -31,7 +31,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopBorder"]
-position = Vector2(-152.075, -106.25)
+position = Vector2(-152, -116)
 scale = Vector2(0.46007, -0.0916998)
 shape = SubResource("RectangleShape2D_vlahm")
 
@@ -41,7 +41,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightBorder"]
-position = Vector2(26.4063, 0)
+position = Vector2(47, -1)
 shape = SubResource("RectangleShape2D_c532e")
 
 [node name="BottomBorder" type="Area2D" parent="."]
@@ -49,7 +49,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBorder"]
-position = Vector2(0, 147.5)
+position = Vector2(0, 156)
 shape = SubResource("RectangleShape2D_l7voo")
 
 [connection signal="body_entered" from="LeftBorder" to="." method="BodyEntered" binds= ["LeftBorder"]]

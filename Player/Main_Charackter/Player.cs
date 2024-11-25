@@ -9,6 +9,7 @@ public partial class Player : CharacterBody2D
 	public void GetInput(){
 		Vector2 inputDirection = Input.GetVector("moveLeft", "moveRight", "moveUp", "moveDown");
 		Velocity = inputDirection * speed;
+
 	}
     public override void _Ready()
     {
