@@ -3,47 +3,53 @@
 [ext_resource type="Script" path="res://Map/CamSwitch.cs" id="1_7inos"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_btw61"]
-size = Vector2(11, 104)
+size = Vector2(0.5, 104)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlahm"]
-size = Vector2(308, 76.3361)
+size = Vector2(308.324, 5.45248)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c532e"]
-size = Vector2(17.25, 128)
+size = Vector2(0.8125, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l7voo"]
-size = Vector2(141, 5)
+size = Vector2(141, 1)
 
 [node name="CamSwitch" type="Node2D"]
 script = ExtResource("1_7inos")
 
 [node name="LeftBorder" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder"]
-position = Vector2(-281.5, -5)
+position = Vector2(-276.25, 0)
 shape = SubResource("RectangleShape2D_btw61")
 
 [node name="TopBorder" type="Area2D" parent="."]
 position = Vector2(152, -45)
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopBorder"]
-position = Vector2(-152, -113.5)
+position = Vector2(-152.075, -106.25)
 scale = Vector2(0.46007, -0.0916998)
 shape = SubResource("RectangleShape2D_vlahm")
 
 [node name="RightBorder" type="Area2D" parent="."]
 position = Vector2(237, 1)
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightBorder"]
-position = Vector2(42, -1)
+position = Vector2(26.4063, 0)
 shape = SubResource("RectangleShape2D_c532e")
 
 [node name="BottomBorder" type="Area2D" parent="."]
-collision_layer = 15
-collision_mask = 15
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBorder"]
-position = Vector2(0.5, 158.5)
+position = Vector2(0, 147.5)
 shape = SubResource("RectangleShape2D_l7voo")
 
 [connection signal="body_entered" from="LeftBorder" to="." method="BodyEntered" binds= ["LeftBorder"]]
