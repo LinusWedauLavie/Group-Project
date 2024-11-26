@@ -4,6 +4,7 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	[Export] int speed = 250;
+	public Control optionsMenu;
 	bool optionMenuShow = false;
 
 	public void GetInput(){
@@ -11,9 +12,15 @@ public partial class Player : CharacterBody2D
 		Velocity = inputDirection * speed;
 		if (Input.IsActionJustPressed("pauseMenu"))
 		{
-			if(true)
+			if(optionMenuShow == false)
 			{
+				optionsMenu.Show();
 				
+				optionMenuShow = true;
+			}else
+			{
+				optionsMenu.Hide();
+				optionMenuShow = false;
 			}
 			//TODO machen das man es auch wieder schließen kann
 		}
@@ -21,6 +28,7 @@ public partial class Player : CharacterBody2D
 
     public override void _Ready()
     {
+		optionsMenu = GetNode<Control>("/root/Map/MainCam/Options_Menu");
 		
     }
 

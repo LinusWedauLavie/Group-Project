@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://vyqryb6cw716"]
+[gd_scene load_steps=8 format=3 uid="uid://vyqryb6cw716"]
 
 [ext_resource type="Script" path="res://Map/MapGenerator.cs" id="1_fir3t"]
 [ext_resource type="Texture2D" uid="uid://15842dhjlhju" path="res://Map/Rooms/Roomtest.png" id="2_uaoyt"]
 [ext_resource type="PackedScene" uid="uid://dgv2o5a0n1auc" path="res://Player/Main_Charackter/player.tscn" id="2_vv6gr"]
 [ext_resource type="PackedScene" uid="uid://8jit6yv30sic" path="res://Enemys/Ratte/ratte_enemy.tscn" id="4_2svww"]
+[ext_resource type="Script" path="res://MainCam.cs" id="4_5dw3d"]
 [ext_resource type="PackedScene" uid="uid://bm6s5he23xmd7" path="res://Menus/OptionsMenu/OptionsMenu.tscn" id="4_l13pv"]
 [ext_resource type="PackedScene" uid="uid://dwu8rxeqjalxd" path="res://Map/Rooms/CamSwitchSetup.tscn" id="5_ubw7j"]
 
@@ -17,6 +18,7 @@ texture = ExtResource("2_uaoyt")
 
 [node name="MainCam" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+script = ExtResource("4_5dw3d")
 
 [node name="Options_Menu" parent="MainCam" instance=ExtResource("4_l13pv")]
 visible = false
