@@ -1,21 +1,28 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 
 public partial class DeckBuilderSzene : Control
 {
+<<<<<<< HEAD
 	private HBoxContainer handContainer;
 	private VBoxContainer deckContainer;
 	private Deck deck;
+	private Panel playArea;
+=======
+	private VBoxContainer handContainer;
+>>>>>>> parent of 25af2ea (Deck, Hintergrund und mehrere Zeilen der Beschreibung)
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		//Den Container finden, der die Karten darstellen soll
-		handContainer = GetNode<HBoxContainer>("handContainer");
+		handContainer = GetNode<VBoxContainer>("HandContainer");
 
+<<<<<<< HEAD
 		//deckContainer finden
 		deckContainer = GetNode<VBoxContainer>("deckContainer");
+
+		playArea = GetNode<Panel>("PlayArea");
 
 		//Beispielkarten erstellen
 		List<Card> initialCards = new List<Card>
@@ -55,6 +62,11 @@ public partial class DeckBuilderSzene : Control
 				AddCardToHand(drawnCard);
 			}
 		}
+=======
+		//Beispielkarte erstellen und anzeigen
+		Card exempleCard = new Card("Fireball", "Spell", 0, 0, "Deals 5 damage to an enemy.");
+		AddCardToHand(exempleCard);
+>>>>>>> parent of 25af2ea (Deck, Hintergrund und mehrere Zeilen der Beschreibung)
 	}
 
 	private void AddCardToHand(Card card)
@@ -67,22 +79,14 @@ public partial class DeckBuilderSzene : Control
 
 		AddChild(cardUI);
 
-		// Stelle sicher, dass kein doppelter Parent existiert
-    	if (cardUI.GetParent() != null)
-    	{
-        	cardUI.GetParent().RemoveChild(cardUI);
-    	}
-
 		//Setze die Kartendaten
 		cardUI.SetCard(card);
-
-		//Nur die Vorderseite anzeigen
-		cardUI.ShowFrontSide();
 
 		//Füge die Karten dem Container hinzu
 		handContainer.AddChild(cardUI);
 	}
 
+<<<<<<< HEAD
 	private void AddCardToDeck(Card card)
 	{
 		//Lade die Karten-Szene
@@ -106,8 +110,40 @@ public partial class DeckBuilderSzene : Control
 		deckContainer.AddChild(cardUI);
 	}
 
+	private void _OnCardPlayed(Node cardUI)
+	{
+		if (cardUI is CardUI card)
+		{
+			GD.Print($"Karte gespielt: {card.GetCardData().Name}");
+			handContainer.RemoveChild(card);
+			card.QueueFree(); //Entfernt die Karte aus der Szene
+		}
+	}
+
+=======
+>>>>>>> parent of 25af2ea (Deck, Hintergrund und mehrere Zeilen der Beschreibung)
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		foreach (CardUI cardUI in handContainer.GetChildren())
+		{
+			if (IsIntersecting(cardUI, playArea))
+			{
+				GD.Print($"{cardUI.GetCardData().Name} is in the play area!");
+				//Optional: Füge Logik hinzu, z.B. Karte endgültig spielen
+			}
+		}
+	}
+
+	private bool IsIntersecting(CardUI cardUI, Control playArea)
+	{
+		//Rechteck der Karte
+		Rect2 cardRect = new Rect2(cardUI.Position, cardUI.GetRect().Size);
+
+		//Rechteck des Spielbereichs
+		Rect2 playAreaRect = new Rect2(playArea.Position, playArea.GetRect().Size);
+
+		//Überprüfen, ob sich die beiden Rechtecke überschneiden
+		return cardRect.Intersects(playAreaRect);
 	}
 }

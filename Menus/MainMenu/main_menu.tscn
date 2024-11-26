@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdn0mwtpd28i1"]
+[gd_scene load_steps=5 format=3 uid="uid://cdn0mwtpd28i1"]
 
 [ext_resource type="Script" path="res://Menus/MainMenu/MainMenu.cs" id="1_uqjjm"]
+[ext_resource type="Script" path="res://arschlecken.cs" id="2_jd2st"]
 
 [sub_resource type="SystemFont" id="SystemFont_ky8m1"]
 font_names = PackedStringArray("Impact")
@@ -88,5 +89,13 @@ theme_override_fonts/font = SubResource("SystemFont_4ervb")
 theme_override_font_sizes/font_size = 24
 text = "Exit"
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 264.0
+offset_bottom = 194.0
+text = "gfvgz6"
+script = ExtResource("2_jd2st")
+
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Start_Button" to="." method="OnStartButtonPressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Exit_Button" to="." method="OnExitButtonPressed"]
+[connection signal="pressed" from="Button" to="Button" method="_on_pissed"]

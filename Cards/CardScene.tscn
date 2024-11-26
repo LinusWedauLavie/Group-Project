@@ -4,47 +4,34 @@
 [ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="2_024wu"]
 
 [node name="Panel" type="Panel"]
-offset_left = -137.0
-offset_top = -212.0
-offset_right = 121.0
-offset_bottom = 159.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
+offset_right = 258.0
+offset_bottom = 363.0
 script = ExtResource("1_3kmg8")
 
-[node name="frontSide" type="Panel" parent="."]
-layout_mode = 0
-offset_right = 256.0
-offset_bottom = 369.0
-
-[node name="lblCardName" type="Label" parent="frontSide"]
+[node name="lblCardName" type="Label" parent="."]
 layout_mode = 2
-offset_left = 23.0
-offset_right = 239.0
+offset_right = 258.0
 offset_bottom = 34.0
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="backSideBild" type="TextureRect" parent="frontSide"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 4.0
-offset_right = 254.0
-offset_bottom = 369.0
+[node name="cardBild" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 38.0
+offset_right = 259.0
+offset_bottom = 202.0
 texture = ExtResource("2_024wu")
 
-[node name="cardBild" type="TextureRect" parent="frontSide"]
+[node name="lblCardBeschreibung" type="Label" parent="."]
 layout_mode = 2
-offset_left = 16.0
-offset_top = 36.0
-offset_right = 242.0
-offset_bottom = 200.0
-texture = ExtResource("2_024wu")
-
-[node name="lblCardBeschreibung" type="Label" parent="frontSide"]
-layout_mode = 2
-offset_left = 20.0
+offset_left = 5.0
 offset_top = 212.0
-offset_right = 235.0
+offset_right = 252.0
 offset_bottom = 354.0
+<<<<<<< HEAD
 autowrap_mode = 3
+
+[connection signal="gui_input" from="." to="." method="gui_input"]
+=======
+>>>>>>> parent of 25af2ea (Deck, Hintergrund und mehrere Zeilen der Beschreibung)
