@@ -11,7 +11,7 @@ public partial class Player : CharacterBody2D
 		Velocity = inputDirection * speed;
 		if (Input.IsActionJustPressed("pauseMenu"))
 		{
-			if()
+			if(true)
 			{
 				
 			}
