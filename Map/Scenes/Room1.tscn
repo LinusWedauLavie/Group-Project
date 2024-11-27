@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://oj01bljhxi1f"]
 
 [ext_resource type="Texture2D" uid="uid://15842dhjlhju" path="res://Map/Rooms/Roomtest.png" id="1_eh3ap"]
-[ext_resource type="PackedScene" path="res://Map/Rooms/CamSwitchSetup.tscn" id="2_b1cwt"]
+[ext_resource type="PackedScene" uid="uid://dwu8rxeqjalxd" path="res://Map/Rooms/CamSwitchSetup.tscn" id="2_b1cwt"]
 
 [node name="Room1" type="Node2D"]
 

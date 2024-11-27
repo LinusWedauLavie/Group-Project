@@ -24,10 +24,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_vqwef")
 tab_alignment = 1
-current_tab = 2
+current_tab = 0
 
 [node name="Graphics" type="TabBar" parent="TabController"]
-visible = false
 layout_mode = 2
 tab_alignment = 1
 metadata/_tab_index = 0
@@ -197,6 +196,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="Controls" type="TabBar" parent="TabController"]
+visible = false
 layout_mode = 2
 tab_alignment = 1
 metadata/_tab_index = 2
