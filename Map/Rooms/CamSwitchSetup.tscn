@@ -31,7 +31,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopBorder"]
-position = Vector2(-152, -116)
+position = Vector2(-152, -104)
 scale = Vector2(0.46007, -0.0916998)
 shape = SubResource("RectangleShape2D_vlahm")
 

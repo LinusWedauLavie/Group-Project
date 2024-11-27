@@ -25,48 +25,47 @@ public partial class CamSwitch : Node2D
         {
             switch (test)
             {
-                case "LeftBorder":
-                
-                    Vector2 addPlayerPosition;
-                    Vector2 addCameraPosition;
-                    addCameraPosition.X = -576;
-                    addCameraPosition.Y = 0;
+                    case "LeftBorder":
+                    Vector2 addPlayerPosition = new Vector2(0, 0);  
+                    Vector2 addCameraPosition = new Vector2(-576, 0);
                     GD.Print("links");
                     mainCam.Position += addCameraPosition;
-                    addPlayerPosition.X += -160; 
+                    
+                    addPlayerPosition.X += -160;  
                     addPlayerPosition.Y = 0;
                     player.GlobalPosition += addPlayerPosition;
+                    break;               
 
-                    break;
-                case "TopBorder":
-                    addCameraPosition.Y = -324;
-                    addCameraPosition.X = 0;
+                    case "TopBorder":
+                    Vector2 addPlayerPositionTop = new Vector2(0, 0);  
+                    Vector2 addCameraPositionTop = new Vector2(0, -324);  
                     GD.Print("oben");
-                    mainCam.Position += addCameraPosition;
-                    addPlayerPosition.Y += -100;
-                    addPlayerPosition.X = 0; 
-                    player.GlobalPosition += addPlayerPosition;
-
+                    mainCam.Position += addCameraPositionTop;
+                    addPlayerPositionTop.Y += -100;
+                    addPlayerPositionTop.X = 0; 
+                    player.GlobalPosition += addPlayerPositionTop;
                     break;
-                case "RightBorder":
-                    addCameraPosition.X = 576;
+
+                    case "RightBorder":
+                    Vector2 addPlayerPositionRight = new Vector2(0, 0);  
+                    Vector2 addCameraPositionRight = new Vector2(576, 0);  
                     GD.Print("rechts");
-                    addCameraPosition.Y = 0;
-                    mainCam.Position += addCameraPosition;
-                    addPlayerPosition.X += 160;
-                    addPlayerPosition.Y = 0; 
-                    player.GlobalPosition += addPlayerPosition;
-
+                    mainCam.Position += addCameraPositionRight;
+                    addPlayerPositionRight.X += 160;
+                    addPlayerPositionRight.Y = 0; 
+                    player.GlobalPosition += addPlayerPositionRight;
                     break;
-                case "BottomBorder":
-                    addCameraPosition.Y = 324;
-                    addCameraPosition.X = 0;
+
+                    case "BottomBorder":
+                    Vector2 addPlayerPositionBottom = new Vector2(0, 0);  
+                    Vector2 addCameraPositionBottom = new Vector2(0, 324);  
                     GD.Print("unten");
-                    mainCam.Position += addCameraPosition;
-                    addPlayerPosition.X = 0;
-                    addPlayerPosition.Y += 100; 
-
+                    mainCam.Position += addCameraPositionBottom;
+                    addPlayerPositionBottom.X = 0;
+                    addPlayerPositionBottom.Y += 100;
+                    player.GlobalPosition += addPlayerPositionBottom;
                     break;
+
             }
         }
     }
