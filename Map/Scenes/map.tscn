@@ -1,15 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://vyqryb6cw716"]
+[gd_scene load_steps=8 format=3 uid="uid://vyqryb6cw716"]
 
 [ext_resource type="Script" path="res://Map/MapGenerator.cs" id="1_fir3t"]
 [ext_resource type="Texture2D" uid="uid://15842dhjlhju" path="res://Map/Rooms/Roomtest.png" id="2_uaoyt"]
 [ext_resource type="PackedScene" uid="uid://dgv2o5a0n1auc" path="res://Player/Main_Charackter/player.tscn" id="2_vv6gr"]
 [ext_resource type="PackedScene" uid="uid://8jit6yv30sic" path="res://Enemys/Ratte/ratte_enemy.tscn" id="4_2svww"]
-[ext_resource type="PackedScene" path="res://Map/Rooms/CamSwitchSetup.tscn" id="5_ubw7j"]
+[ext_resource type="Script" path="res://Coin/CoinCountLabel.cs" id="4_f2kts"]
+[ext_resource type="PackedScene" uid="uid://dwu8rxeqjalxd" path="res://Map/Rooms/CamSwitchSetup.tscn" id="5_ubw7j"]
+[ext_resource type="PackedScene" uid="uid://fe558wbqxfgf" path="res://Coin/Coin.tscn" id="6_7cji8"]
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_fir3t")
 
 [node name="StartRoom" type="Sprite2D" parent="."]
+position = Vector2(4.5, 3)
+scale = Vector2(0.970486, 0.975309)
 texture = ExtResource("2_uaoyt")
 
 [node name="Player" parent="." instance=ExtResource("2_vv6gr")]
@@ -17,7 +21,20 @@ texture = ExtResource("2_uaoyt")
 [node name="MainCam" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
+[node name="CoinCountLabel" type="Label" parent="MainCam"]
+offset_left = -247.0
+offset_top = -139.0
+offset_right = -109.0
+offset_bottom = -116.0
+script = ExtResource("4_f2kts")
+
 [node name="Ratte_Enemy" parent="." instance=ExtResource("4_2svww")]
 position = Vector2(-96, -13)
 
 [node name="Node2D" parent="." instance=ExtResource("5_ubw7j")]
+position = Vector2(-4, 14)
+
+[node name="Coin" parent="." instance=ExtResource("6_7cji8")]
+position = Vector2(-10, -53)
+scale = Vector2(0.25, 0.25)
+Coins = 1

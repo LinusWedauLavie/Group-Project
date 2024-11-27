@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://8jit6yv30sic"]
+[gd_scene load_steps=10 format=3 uid="uid://8jit6yv30sic"]
 
 [ext_resource type="Script" path="res://Enemys/EnemyMovementToPlayer.cs" id="1_1x4w5"]
 [ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="1_vuyn2"]
-[ext_resource type="PackedScene" uid="uid://dlx4wu08bjmj8" path="res://Components/HealthComponents/HealthComponent.tscn" id="2_muqxd"]
+[ext_resource type="PackedScene" path="res://Components/HealthComponents/HealthComponent.tscn" id="2_muqxd"]
 [ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="3_b4rkm"]
 [ext_resource type="PackedScene" uid="uid://cbrb4qkbaq7jm" path="res://Components/AttackComponentEnemy/AttackComponentEnemy.tscn" id="5_wpvyp"]
+[ext_resource type="Script" path="res://Enemys/Ratte/Coindropper.cs" id="6_pn7jh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_seac4"]
 size = Vector2(22, 6)
@@ -48,7 +49,9 @@ shape = SubResource("RectangleShape2D_seac4")
 [node name="AttackComponentEnemy" parent="." instance=ExtResource("5_wpvyp")]
 collision_layer = 0
 collision_mask = 2
-attackDamage = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponentEnemy"]
 shape = SubResource("RectangleShape2D_ldwry")
+
+[node name="Coindropper" type="Node2D" parent="."]
+script = ExtResource("6_pn7jh")

@@ -11,4 +11,3 @@ public partial class HitBoxComponent : Area2D
         }
     }
 }
-
