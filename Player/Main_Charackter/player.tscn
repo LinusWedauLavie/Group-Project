@@ -1,12 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgv2o5a0n1auc"]
+[gd_scene load_steps=9 format=3 uid="uid://dgv2o5a0n1auc"]
 
 [ext_resource type="Script" path="res://Player/Main_Charackter/Player.cs" id="1_0k8ld"]
 [ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="2_k7c3j"]
-[ext_resource type="PackedScene" path="res://Components/HealthComponents/HealthComponent.tscn" id="3_wu1hk"]
+[ext_resource type="PackedScene" uid="uid://dlx4wu08bjmj8" path="res://Components/HealthComponents/HealthComponent.tscn" id="3_wu1hk"]
 [ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="4_37gyk"]
+[ext_resource type="PackedScene" uid="uid://di80s8xtj1hjk" path="res://Components/AttackComponentPlayer/AttackComponentPlayer.tscn" id="5_ui6y4"]
+[ext_resource type="Texture2D" uid="uid://x2adn1cydnle" path="res://Player/Main_Charackter/sword/Sword.png" id="6_riqbj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fyie"]
 size = Vector2(18, 26)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mlf77"]
+radius = 4.99924
+height = 24.136
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 4
@@ -29,3 +35,22 @@ healthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBoxComponent"]
 shape = SubResource("RectangleShape2D_3fyie")
+
+[node name="Pivot" type="Marker2D" parent="."]
+
+[node name="AttackComponentPlayer" parent="Pivot" instance=ExtResource("5_ui6y4")]
+rotation = -0.0174533
+collision_layer = 0
+collision_mask = 8
+damage = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/AttackComponentPlayer"]
+position = Vector2(28.9956, 0.50612)
+rotation = 1.58825
+shape = SubResource("CapsuleShape2D_mlf77")
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot/AttackComponentPlayer"]
+texture_filter = 1
+position = Vector2(31.9951, 0.558477)
+rotation = 1.58825
+texture = ExtResource("6_riqbj")

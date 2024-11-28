@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://di80s8xtj1hjk"]
+
+[ext_resource type="Script" path="res://Components/AttackComponentPlayer/AttackComponentPlayer.cs" id="1_ifvs1"]
+
+[node name="AttackComponentPlayer" type="Area2D"]
+script = ExtResource("1_ifvs1")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
+[connection signal="timeout" from="AttackTimer" to="." method="OnAttackTimerTimeout"]

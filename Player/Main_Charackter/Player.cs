@@ -10,6 +10,7 @@ public partial class Player : CharacterBody2D
 	public void GetInput(){
 		Vector2 inputDirection = Input.GetVector("moveLeft", "moveRight", "moveUp", "moveDown");
 		Velocity = inputDirection * speed;
+		MainScript.inputDirection = inputDirection;
 		if (Input.IsActionJustPressed("pauseMenu"))
 		{
 			if(optionMenuShow == false)
@@ -22,7 +23,6 @@ public partial class Player : CharacterBody2D
 				optionsMenu.Hide();
 				optionMenuShow = false;
 			}
-			//TODO machen das man es auch wieder schließen kann
 		}
 	}
 
