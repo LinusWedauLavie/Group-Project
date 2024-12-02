@@ -1,101 +1,283 @@
 using Godot;
+
 using System;
+ 
+public enum RoomType
 
-public partial class MapGenerator : Node2D
 {
+
+    Normal,
+    Shop,
+    Item,
+    Miniboss,
+    Boss
+
+}
+ 
+public partial class MapGenerator : Node2D
+
+{
+
     public Node2D lastRoom;
+
     public Node2D shouldPlacedRoom;
-    public PackedScene Room1;
+
+    public PackedScene NormalRoom;
+
+    public PackedScene ShopRoom;
+
+    public PackedScene ItemRoom;
+
+    public PackedScene MinibossRoom;
+
+    public PackedScene BossRoom;
+
     bool[,] roomFieldArray = new bool[40, 40];
+
     Vector2I lastRoomVector = new Vector2I();
+
     int maxRooms = 10;  // maximale anzahl an räumen
-    int roomCount = 0;  //zähler für generierte räume
 
-    // Called when the node enters the scene tree for the first time.
+    int roomCount = 0;  // zähler für generierte räume
+ 
+    // raumtypen als enum definieren
+
+    public RoomType currentRoomType;
+ 
+    // called when the node enters the scene tree for the first time
+
     public override void _Ready()
-    {
-        Node2D startRoom = (Node2D)GetParent().GetNode("/root/Map/StartRoom");
-        lastRoom = startRoom;
-        Room1 = ResourceLoader.Load<PackedScene>("res://Map/Scenes/Room1.tscn");
-        roomFieldArray[19, 19] = true;  // Startposition
-        lastRoomVector = new Vector2I(19, 19);
-        Generator();
-    }
 
-    public void Generator()
     {
-        if (roomCount >= maxRooms)  // checkt ob die maximale anzahl an räumen erreicht wurde
-        {
-            GD.Print("Maximale Raumanzahl erreicht");
-            return;  // Stoppt die Generierung
-        }
+
+        Node2D startRoom = (Node2D)GetParent().GetNode("/root/Map/StartRoom");
+
+        lastRoom = startRoom;
+ 
+        // räume laden
+
+        NormalRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/NormalRoom.tscn");
+
+        ShopRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/ShopRoom.tscn");
+
+        ItemRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/ItemRoom.tscn");
+
+        MinibossRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/MinibossRoom.tscn");
+
+        BossRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/BossRoom.tscn");
+ 
+        roomFieldArray[19, 19] = true;  // startposition
+
+        lastRoomVector = new Vector2I(19, 19);
+ 
+        Generator();
+
+    }
+ 
+    // diese methode wählt zufällig den raumtyp basierend auf den regeln
+
+    public RoomType GetRandomRoomType()
+
+    {
 
         Random random = new Random();
-        byte[] seed = new byte[10];
-        random.NextBytes(seed);
 
-        // Versucht, in eine der 4 Richtungen zu generieren
-        if (Convert.ToInt64(seed[0].ToString()) < 128 && !roomFieldArray[lastRoomVector.X - 1, lastRoomVector.Y])  // oben
+        int chance = random.Next(0, 100);
+ 
+        // regeln für die auswahl der raumtypen
+
+        if (roomCount == maxRooms - 1)  // der letzte raum sollte der boss-raum sein
+
         {
-            shouldPlacedRoom = (Node2D)Room1.Instantiate();
-            Vector2I oben = new Vector2I(0, -324);
-            shouldPlacedRoom.Position = oben;
-            lastRoom.AddChild(shouldPlacedRoom);
-            lastRoom = shouldPlacedRoom;
-            roomFieldArray[lastRoomVector.X - 1, lastRoomVector.Y] = true;
-            lastRoomVector.X -= 1;
-            roomCount++;
-            GD.Print("Raum nach oben generiert");
+
+            return RoomType.Boss;
+
         }
 
-        if (Convert.ToInt64(seed[1].ToString()) < 128 && !roomFieldArray[lastRoomVector.X, lastRoomVector.Y - 1])  // links
+        else if (roomCount < maxRooms / 3 && chance < 20)  // 20% chance auf miniboss-raum
+
         {
-            shouldPlacedRoom = (Node2D)Room1.Instantiate();
-            Vector2I left = new Vector2I(-576, 0);
-            shouldPlacedRoom.Position = left;
-            lastRoom.AddChild(shouldPlacedRoom);
-            lastRoom = shouldPlacedRoom;
-            roomFieldArray[lastRoomVector.X, lastRoomVector.Y - 1] = true;
-            lastRoomVector.Y -= 1;
-            roomCount++;
-            GD.Print("Raum nach links generiert");
+
+            return RoomType.Miniboss;
+
         }
 
-        if (Convert.ToInt64(seed[2].ToString()) < 128 && !roomFieldArray[lastRoomVector.X, lastRoomVector.Y + 1])  // rechts
+        else if (roomCount == maxRooms - 2)  // der vorletzte raum könnte ein shop oder item-raum sein
+
         {
-            shouldPlacedRoom = (Node2D)Room1.Instantiate();
-            Vector2I right = new Vector2I(576, 0);
-            shouldPlacedRoom.Position = right;
-            lastRoom.AddChild(shouldPlacedRoom);
-            lastRoom = shouldPlacedRoom;
-            roomFieldArray[lastRoomVector.X, lastRoomVector.Y + 1] = true;
-            lastRoomVector.Y += 1;
-            roomCount++;
-            GD.Print("Raum nach rechts generiert");
+
+            return RoomType.Shop;
+
         }
 
-        if (Convert.ToInt64(seed[3].ToString()) < 128 && !roomFieldArray[lastRoomVector.X + 1, lastRoomVector.Y])  // unten
+        else if (chance < 10)  // 10% chance auf einen item-raum
+
         {
-            shouldPlacedRoom = (Node2D)Room1.Instantiate();
-            Vector2I bottom = new Vector2I(0, 324);
-            shouldPlacedRoom.Position = bottom;
-            lastRoom.AddChild(shouldPlacedRoom);
-            lastRoom = shouldPlacedRoom;
-            roomFieldArray[lastRoomVector.X + 1, lastRoomVector.Y] = true;
-            lastRoomVector.X += 1;
-            roomCount++;
-            GD.Print("Raum nach unten generiert");
+
+            return RoomType.Item;
+
         }
 
-        // Rekursive Generator Ausführung um weitere Räume zu generieren
-        if (roomCount < maxRooms)  
+        else  // der rest sind normale räume
+
         {
-            Generator();
+
+            return RoomType.Normal;
+
         }
+
     }
+ 
+    // generiert räume basierend auf dem zufälligen raumtyp
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+    public void Generator()
+
     {
+
+        if (roomCount >= maxRooms)  // stoppt, wenn maximale raumanzahl erreicht ist
+
+        {
+
+            GD.Print("Maximale Raumanzahl erreicht");
+
+            return;
+
+        }
+ 
+        // raumtyp basierend auf zufälligem generator auswählen
+
+        currentRoomType = GetRandomRoomType();
+ 
+        // wählen sie das passende szenenobjekt basierend auf dem raumtyp
+
+        switch (currentRoomType)
+
+        {
+
+            case RoomType.Shop:
+
+                shouldPlacedRoom = (Node2D)ShopRoom.Instantiate();
+
+                break;
+
+            case RoomType.Item:
+
+                shouldPlacedRoom = (Node2D)ItemRoom.Instantiate();
+
+                break;
+
+            case RoomType.Miniboss:
+
+                shouldPlacedRoom = (Node2D)MinibossRoom.Instantiate();
+
+                break;
+
+            case RoomType.Boss:
+
+                shouldPlacedRoom = (Node2D)BossRoom.Instantiate();
+
+                break;
+
+            default:
+
+                shouldPlacedRoom = (Node2D)NormalRoom.Instantiate();
+
+                break;
+
+        }
+ 
+        Vector2I roomOffset = GetRoomOffset(currentRoomType);
+
+        shouldPlacedRoom.Position = roomOffset;
+
+        lastRoom.AddChild(shouldPlacedRoom);
+
+        lastRoom = shouldPlacedRoom;
+ 
+        // update raumfeld
+
+        if (lastRoomVector.X >= 0 && lastRoomVector.X < roomFieldArray.GetLength(0) && lastRoomVector.Y >= 0 && lastRoomVector.Y < roomFieldArray.GetLength(1))
+    {
+            roomFieldArray[lastRoomVector.X, lastRoomVector.Y] = true;
     }
+        else
+        {
+    GD.PrintErr("Invalid room position: " + lastRoomVector);
+        }       
+
+ 
+        // aktualisieren sie den letzten raumvektor
+
+        lastRoomVector.X += roomOffset.X;
+
+        lastRoomVector.Y += roomOffset.Y;
+ 
+        roomCount++;
+
+        GD.Print($"Raum vom Typ {currentRoomType} generiert");
+
+        // rekursive ausführung zur generierung weiterer räume
+
+        if (roomCount < maxRooms)
+
+        {
+
+            Generator();
+
+        }
+
+    }
+ 
+    // bestimmt die offset-position basierend auf dem raumtyp
+
+    private Vector2I GetRoomOffset(RoomType roomType)
+
+    {
+
+        // beispielhafte offsets basierend auf raumtypen
+
+        if (roomType == RoomType.Shop || roomType == RoomType.Item)
+
+        {
+
+            return new Vector2I(576, 0);  // beispiel: bewege nach rechts
+
+        }
+
+        else if (roomType == RoomType.Miniboss)
+
+        {
+
+            return new Vector2I(0, 324);  // beispiel: bewege nach unten
+
+        }
+
+        else if (roomType == RoomType.Boss)
+
+        {
+
+            return new Vector2I(0, -324);  // beispiel: bewege nach oben
+
+        }
+
+        else
+
+        {
+
+            return new Vector2I(576, 0);  // standard für normale räume
+
+        }
+
+    }
+ 
+    // called every frame delta is the elapsed time since the previous frame
+
+    public override void _Process(double delta)
+
+    {
+
+    }
+
 }
+
+ 

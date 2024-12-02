@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn7wgivhqysio"]
+
+[ext_resource type="Texture2D" uid="uid://c0bbsndr0r1k" path="res://Map/Rooms/ItemRoom.png" id="1_g5px2"]
+[ext_resource type="PackedScene" uid="uid://dwu8rxeqjalxd" path="res://Map/Rooms/CamSwitchSetup.tscn" id="2_73h6h"]
+
+[node name="ItemRoom" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_g5px2")
+
+[node name="CamSwitch" parent="." instance=ExtResource("2_73h6h")]
