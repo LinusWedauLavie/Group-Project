@@ -1,35 +1,37 @@
-using Godot;
+using Godot; // bro hab kein bock mehr ich geh pennen
 using System;
 
 public partial class CamSwitch : Node2D
 {
     public Camera2D mainCam;
+    
     public CharacterBody2D player;
+
     public Timer timer;
+
     public bool isRoomCleared = false;
+
     public bool ichdarfdurchdietür = true;
 
-    // Called when the node enters the scene tree for the first time.
+    private bool[,] roomFieldArray = new bool[20, 20]; // größe ggf anpassen
 
-    // called when the node enters the scene tree for the first time
     public override void _Ready()
     {
         player = GetParent().GetNode<CharacterBody2D>("/root/Map/Player");
         mainCam = GetParent().GetNode<Camera2D>("/root/Map/MainCam");
     }
-
-    // diese methode überprüft ob an der gegebenen position ein raum existiert
-    public bool IsRoomGeneratedAt(Vector2 position)
+    public bool IsRoomGeneratedAt(Vector2 position) // ich habe hier ein wenig rum probiert könnte sein das hier der fehler liegt
     {
-        // berechne die indizes basierend auf der position
+       
         int x = (int)(position.X = 576); 
         int y = (int)(position.Y = 324); 
+        
 
-        // überprüfe ob die position im gültigen bereich des arrays liegt
+        // überprüft ob die position im gültigen bereich des arrays liegt 
         if (x >= 0 && x < roomFieldArray.GetLength(0) && y >= 0 && y < roomFieldArray.GetLength(1))
         {
             GD.Print($"überprüfe position: {x}, {y}, raum existiert: {roomFieldArray[x, y]}");
-            return roomFieldArray[x, y];  // gibt an ob an dieser position ein raum existiert
+            return roomFieldArray[x, y];  
         }
         return false;
     }
@@ -47,13 +49,13 @@ public partial class CamSwitch : Node2D
             Vector2 targetPlayerPosition = player.GlobalPosition;
             Vector2 targetCameraPosition = mainCam.Position;
 
-            bool canTeleport = false;  // flag um zu überprüfen ob teleport und kamerawechsel stattfinden können
+            bool canTeleport = true;  // flag um zu überprüfen ob teleport und kamerawechsel stattfinden können
             
             switch (test)
             {
                 case "LeftBorder":
                     addCameraPosition = new Vector2(-576, 0);
-                    addPlayerPosition = new Vector2(-160, 0); // teleportiere den spieler nach links
+                    addPlayerPosition = new Vector2(-160, 0); 
                     targetPlayerPosition = player.GlobalPosition + addPlayerPosition;
                     targetCameraPosition = mainCam.Position + addCameraPosition;
                     canTeleport = IsRoomGeneratedAt(targetPlayerPosition);  // überprüfe ob der raum existiert
@@ -62,7 +64,7 @@ public partial class CamSwitch : Node2D
 
                 case "TopBorder":
                     addCameraPosition = new Vector2(0, -324);
-                    addPlayerPosition = new Vector2(0, -100);  // teleportiere den spieler nach oben
+                    addPlayerPosition = new Vector2(0, -100); 
                     targetPlayerPosition = player.GlobalPosition + addPlayerPosition;
                     targetCameraPosition = mainCam.Position + addCameraPosition;
                     canTeleport = IsRoomGeneratedAt(targetPlayerPosition);  // überprüfe ob der raum existiert
@@ -71,7 +73,7 @@ public partial class CamSwitch : Node2D
 
                 case "RightBorder":
                     addCameraPosition = new Vector2(576, 0);
-                    addPlayerPosition = new Vector2(160, 0);  // teleportiere den spieler nach rechts
+                    addPlayerPosition = new Vector2(160, 0); 
                     targetPlayerPosition = player.GlobalPosition + addPlayerPosition;
                     targetCameraPosition = mainCam.Position + addCameraPosition;
                     canTeleport = IsRoomGeneratedAt(targetPlayerPosition);  // überprüfe ob der raum existiert
@@ -80,7 +82,7 @@ public partial class CamSwitch : Node2D
 
                 case "BottomBorder":
                     addCameraPosition = new Vector2(0, 324);
-                    addPlayerPosition = new Vector2(0, 100);  // teleportiere den spieler nach unten
+                    addPlayerPosition = new Vector2(0, 100); 
                     targetPlayerPosition = player.GlobalPosition + addPlayerPosition;
                     targetCameraPosition = mainCam.Position + addCameraPosition;
                     canTeleport = IsRoomGeneratedAt(targetPlayerPosition);  // überprüfe ob der raum existiert
