@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://crk6em347er8j"]
+
+[ext_resource type="Script" path="res://Enemys/EnemyMovementToPlayer.cs" id="1_jilfr"]
+[ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="1_txmuw"]
+[ext_resource type="Script" path="res://HealthComponent4.cs" id="3_u78qv"]
+[ext_resource type="Script" path="res://HitboxComponent4.cs" id="4_q2xq0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2msxt"]
+size = Vector2(65.5, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhbl4"]
+size = Vector2(77, 70)
+
+[sub_resource type="CSharpScript" id="CSharpScript_jhjbi"]
+script/source = "using Godot;
+using System;
+ 
+public partial class AttackComponent4 : Node2D
+{
+    [Export] int attackDamage = 5;
+    public Timer timer;
+    bool areaExited = true;
+ 
+    public override void _Ready()
+    {
+        timer = GetNode<Timer>(\"AttackTimer\");
+    }
+ 
+    public void AreaEnetred(Area2D area)
+    {
+        if (area.HasMethod(\"GiveOwnDamage\"))
+        {
+            areaExited = false;
+            GiveDamage();
+            timer.Start();
+        }
+    }
+ 
+    public void TimerTimeout()
+    {
+        GiveDamage();
+    }
+ 
+    public void AreaExited(Area2D area)
+    {
+        areaExited = true;
+        GD.Print(\"exit\");
+    }
+ 
+    public void GiveDamage()
+    {
+        if (!areaExited)
+        {
+            GD.Print(\"rat does damage\");
+            CharacterBody2D player = (CharacterBody2D)GetParent().GetNode(\"/root/Map/Player\");
+            HitBoxComponent playerhitbox = (HitBoxComponent)player.GetNode(\"HitBoxComponent\");
+ 
+            playerhitbox.GiveOwnDamage(attackDamage);
+            timer.WaitTime = 1;
+            timer.Start();
+        }
+    }
+}"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4t1w"]
+size = Vector2(75.5, 69.5)
+
+[node name="miniboss" type="CharacterBody2D"]
+script = ExtResource("1_jilfr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.25, -2)
+shape = SubResource("RectangleShape2D_2msxt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 0.999998)
+scale = Vector2(0.585938, 0.570312)
+texture = ExtResource("1_txmuw")
+
+[node name="HealthComponent4" type="Node2D" parent="."]
+script = ExtResource("3_u78qv")
+
+[node name="HitboxComponent4" type="Area2D" parent="."]
+script = ExtResource("4_q2xq0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent4"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_rhbl4")
+
+[node name="AttackComponent4" type="Area2D" parent="."]
+script = SubResource("CSharpScript_jhjbi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent4"]
+position = Vector2(-1.25, 0.25)
+shape = SubResource("RectangleShape2D_v4t1w")

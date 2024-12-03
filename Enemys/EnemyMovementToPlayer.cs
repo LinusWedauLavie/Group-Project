@@ -3,7 +3,7 @@ using System;
 
 public partial class EnemyMovementToPlayer : CharacterBody2D
 {
-    public float speed = 10f;
+    [Export] public float speed = 30f;
     public float detectionRange = 200f;
     public float stopDistance = 15f;
     public float repelDistance = 5f;

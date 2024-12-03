@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2ne3jammie6f"]
+
+[ext_resource type="Script" path="res://Enemys/EnemyMovementToPlayer.cs" id="1_5y55e"]
+[ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="1_ks01o"]
+[ext_resource type="PackedScene" uid="uid://cbrb4qkbaq7jm" path="res://Components/AttackComponentEnemy/AttackComponentEnemy.tscn" id="2_vubxo"]
+[ext_resource type="PackedScene" uid="uid://cbtrqf54efh2v" path="res://Components/HealthComponents/HealthComponent.tscn" id="3_37hvl"]
+[ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="4_rlk7t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yjnuc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hapq"]
+size = Vector2(79, 54)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1tcy"]
+size = Vector2(79, 54)
+
+[node name="Node2D" type="CharacterBody2D"]
+script = ExtResource("1_5y55e")
+speed = 20.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -8.5)
+shape = SubResource("RectangleShape2D_yjnuc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -3)
+scale = Vector2(0.617188, 0.414063)
+texture = ExtResource("1_ks01o")
+
+[node name="AttackComponentEnemy" parent="." instance=ExtResource("2_vubxo")]
+attackDamage = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponentEnemy"]
+position = Vector2(-1, -3)
+shape = SubResource("RectangleShape2D_2hapq")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_37hvl")]
+
+[node name="ProgressBar" type="ProgressBar" parent="HealthComponent"]
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("4_rlk7t")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+position = Vector2(-1.5, -3)
+shape = SubResource("RectangleShape2D_g1tcy")

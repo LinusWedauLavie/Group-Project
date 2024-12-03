@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://ceq0g7e4bmu5w"]
+
+[ext_resource type="Script" path="res://Enemys/EnemyMovementToPlayer.cs" id="1_0n4v8"]
+[ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="1_yw1gw"]
+[ext_resource type="PackedScene" uid="uid://cbrb4qkbaq7jm" path="res://Components/AttackComponentEnemy/AttackComponentEnemy.tscn" id="2_hw8g1"]
+[ext_resource type="PackedScene" uid="uid://cbtrqf54efh2v" path="res://Components/HealthComponents/HealthComponent.tscn" id="3_kwyhj"]
+[ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="4_vkic7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n6fu0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0v6n"]
+size = Vector2(136.25, 103)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ho606"]
+size = Vector2(136, 106)
+
+[node name="Node2D" type="CharacterBody2D"]
+script = ExtResource("1_0n4v8")
+speed = 20.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -8.5)
+shape = SubResource("RectangleShape2D_n6fu0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.12501, -5.62499)
+scale = Vector2(1.04883, 0.833984)
+texture = ExtResource("1_yw1gw")
+
+[node name="AttackComponentEnemy" parent="." instance=ExtResource("2_hw8g1")]
+attackDamage = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponentEnemy"]
+position = Vector2(-1, -3)
+shape = SubResource("RectangleShape2D_v0v6n")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_kwyhj")]
+max_Health = 200
+
+[node name="ProgressBar" type="ProgressBar" parent="HealthComponent"]
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("4_vkic7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+position = Vector2(-2, -3)
+shape = SubResource("RectangleShape2D_ho606")

@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Player/Main_Charackter/Player.cs" id="1_0k8ld"]
 [ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="2_k7c3j"]
-[ext_resource type="PackedScene" uid="uid://dlx4wu08bjmj8" path="res://Components/HealthComponents/HealthComponent.tscn" id="3_wu1hk"]
 [ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="4_37gyk"]
 [ext_resource type="PackedScene" uid="uid://di80s8xtj1hjk" path="res://Components/AttackComponentPlayer/AttackComponentPlayer.tscn" id="5_ui6y4"]
+[ext_resource type="PackedScene" uid="uid://cbtrqf54efh2v" path="res://Components/HealthComponents/HealthComponent.tscn" id="6_kwgl6"]
 [ext_resource type="Texture2D" uid="uid://x2adn1cydnle" path="res://Player/Main_Charackter/sword/Sword.png" id="6_riqbj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fyie"]
@@ -19,14 +19,13 @@ collision_mask = 4
 script = ExtResource("1_0k8ld")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_3fyie")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -1.78814e-06)
+position = Vector2(-1, 1.90735e-06)
 scale = Vector2(0.140625, 0.203125)
 texture = ExtResource("2_k7c3j")
-
-[node name="HealthComponent" parent="." instance=ExtResource("3_wu1hk")]
 
 [node name="HitBoxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_37gyk")]
 collision_layer = 2
@@ -34,6 +33,7 @@ collision_mask = 0
 healthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBoxComponent"]
+position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_3fyie")
 
 [node name="Pivot" type="Marker2D" parent="."]
@@ -42,15 +42,24 @@ shape = SubResource("RectangleShape2D_3fyie")
 rotation = -0.0174533
 collision_layer = 0
 collision_mask = 8
-damage = 5
+damage = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/AttackComponentPlayer"]
-position = Vector2(28.9956, 0.50612)
+position = Vector2(22.979, 1.40125)
 rotation = 1.58825
 shape = SubResource("CapsuleShape2D_mlf77")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot/AttackComponentPlayer"]
 texture_filter = 1
-position = Vector2(31.9951, 0.558477)
+position = Vector2(27.9783, 1.48852)
 rotation = 1.58825
 texture = ExtResource("6_riqbj")
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_kwgl6")]
+max_Health = 100
+
+[node name="ProgressBar" type="ProgressBar" parent="HealthComponent"]
+offset_left = -31.0
+offset_top = 2.0
+offset_right = 33.0
+offset_bottom = 29.0

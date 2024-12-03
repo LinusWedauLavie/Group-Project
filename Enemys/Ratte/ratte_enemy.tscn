@@ -1,25 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://8jit6yv30sic"]
+[gd_scene load_steps=8 format=3 uid="uid://8jit6yv30sic"]
 
 [ext_resource type="Script" path="res://Enemys/EnemyMovementToPlayer.cs" id="1_1x4w5"]
-[ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="1_vuyn2"]
-[ext_resource type="PackedScene" uid="uid://dlx4wu08bjmj8" path="res://Components/HealthComponents/HealthComponent.tscn" id="2_muqxd"]
+[ext_resource type="PackedScene" uid="uid://cbtrqf54efh2v" path="res://Components/HealthComponents/HealthComponent.tscn" id="2_muqxd"]
 [ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="3_b4rkm"]
+[ext_resource type="PackedScene" uid="uid://fe558wbqxfgf" path="res://Coin/Coin.tscn" id="4_71e35"]
 [ext_resource type="PackedScene" uid="uid://cbrb4qkbaq7jm" path="res://Components/AttackComponentEnemy/AttackComponentEnemy.tscn" id="5_wpvyp"]
-[ext_resource type="Script" path="res://Enemys/Ratte/Coindropper.cs" id="6_pn7jh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_seac4"]
 size = Vector2(22, 6)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ny7ny"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_vuyn2")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwry"]
 size = Vector2(24, 8)
@@ -28,15 +16,18 @@ size = Vector2(24, 8)
 collision_layer = 4
 script = ExtResource("1_1x4w5")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_seac4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.171875, 0.046875)
-sprite_frames = SubResource("SpriteFrames_ny7ny")
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("2_muqxd")]
+healthBar = NodePath("ProgressBar")
+coinScene = ExtResource("4_71e35")
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_muqxd")]
-max_Health = 10
+[node name="ProgressBar" type="ProgressBar" parent="HealthComponent"]
+offset_right = 64.0
+offset_bottom = 27.0
 
 [node name="HitBoxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_b4rkm")]
 collision_layer = 8
@@ -52,6 +43,3 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponentEnemy"]
 shape = SubResource("RectangleShape2D_ldwry")
-
-[node name="Coindropper" type="Node2D" parent="."]
-script = ExtResource("6_pn7jh")
