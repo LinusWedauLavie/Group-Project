@@ -32,8 +32,6 @@ public partial class MapGenerator : Node2D
 
     public PackedScene BossRoom;
 
-    bool[,] roomFieldArray = new bool[40, 40];
-
     Vector2I lastRoomVector = new Vector2I();
 
     int maxRooms = 10;  // maximale anzahl an räumen
@@ -66,7 +64,7 @@ public partial class MapGenerator : Node2D
 
         BossRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/BossRoom.tscn");
  
-        roomFieldArray[19, 19] = true;  // startposition
+        RoomFieldArray.roomFieldArray[19, 19] = true;  // startposition
 
         lastRoomVector = new Vector2I(19, 19);
  
@@ -196,9 +194,9 @@ public partial class MapGenerator : Node2D
  
         // update raumfeld
 
-        if (lastRoomVector.X >= 0 && lastRoomVector.X < roomFieldArray.GetLength(0) && lastRoomVector.Y >= 0 && lastRoomVector.Y < roomFieldArray.GetLength(1))
+        if (lastRoomVector.X >= 0 && lastRoomVector.X < RoomFieldArray.roomFieldArray.GetLength(0) && lastRoomVector.Y >= 0 && lastRoomVector.Y < RoomFieldArray.roomFieldArray.GetLength(1))
     {
-            roomFieldArray[lastRoomVector.X, lastRoomVector.Y] = true;
+            RoomFieldArray.roomFieldArray[lastRoomVector.X, lastRoomVector.Y] = true;
     }
         else
         {
