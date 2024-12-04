@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlffvih55mki8"]
+[gd_scene load_steps=4 format=3 uid="uid://dlffvih55mki8"]
 
 [ext_resource type="Texture2D" uid="uid://b2i7to2v6l5ce" path="res://Map/Rooms/MiniBossRoom.png" id="1_aky3j"]
 [ext_resource type="PackedScene" uid="uid://dwu8rxeqjalxd" path="res://Map/Rooms/CamSwitchSetup.tscn" id="2_qymqt"]
+[ext_resource type="Script" path="res://Map/RoomFieldArray.cs" id="3_27tsn"]
 
 [node name="MiniBossRoom" type="Node2D"]
 
@@ -9,3 +10,6 @@
 texture = ExtResource("1_aky3j")
 
 [node name="CamSwitch" parent="." instance=ExtResource("2_qymqt")]
+
+[node name="RoomFieldArray" type="Node2D" parent="."]
+script = ExtResource("3_27tsn")

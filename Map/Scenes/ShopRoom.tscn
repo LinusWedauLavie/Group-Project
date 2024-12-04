@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b55wr7y1xblat"]
+[gd_scene load_steps=4 format=3 uid="uid://b55wr7y1xblat"]
 
 [ext_resource type="Texture2D" uid="uid://dpk35a0vf46m4" path="res://Map/Rooms/ShopRoom.png" id="1_t6pf6"]
 [ext_resource type="PackedScene" uid="uid://dwu8rxeqjalxd" path="res://Map/Rooms/CamSwitchSetup.tscn" id="2_usbly"]
+[ext_resource type="Script" path="res://Map/RoomFieldArray.cs" id="3_v6evm"]
 
 [node name="ShopRoom" type="Node2D"]
 
@@ -9,3 +10,6 @@
 texture = ExtResource("1_t6pf6")
 
 [node name="CamSwitch" parent="." instance=ExtResource("2_usbly")]
+
+[node name="RoomFieldArray" type="Node2D" parent="."]
+script = ExtResource("3_v6evm")

@@ -9,170 +9,140 @@ public partial class CamSwitch : Node2D
     public bool isRoomCleared = false;
     public bool ichdarfdurchdietür = true;
 
-    Vector2I playerLastRoom = new Vector2I();
+        public PackedScene NormalRoom;
+        public PackedScene ShopRoom;
+        public PackedScene ItemRoom;
+        public PackedScene MiniBossRoom;
+        public PackedScene BossRoom;
 
-    // Beispielhafte Definition des RoomFieldArray (Annahme: es existiert bereits eine Klasse oder eine statische Variable)
-    public static class RoomFieldArray
-    {
-        public static bool[,] roomFieldArray = new bool[10, 10]; // Beispielgröße (kann je nach Bedarf geändert werden)
-    }
+    // Das Raumfeld (Array)
+    public bool[,] roomFieldArray;
+
+    // Konstanten für die Raumgröße
+    public const int ROOM_WIDTH = 576;
+    public const int ROOM_HEIGHT = 324;
+
+    // Die Koordinaten des zuletzt besuchten Raums
+    Vector2I playerLastRoom = new Vector2I();
 
     public override void _Ready()
     {
-        // Überprüfen, ob der Knoten "StartRoom" existiert
-        Node startRoomNode = GetNodeOrNull("/root/Map/StartRoom");
+        playerLastRoom = new Vector2I(0, 0); 
+        player = GetParent().GetNode<CharacterBody2D>("/root/Map/Player");
+        mainCam = GetParent().GetNode<Camera2D>("/root/Map/MainCam");
 
-        if (startRoomNode != null)
-        {
-            GD.Print("StartRoom gefunden!");
-            playerLastRoom = new Vector2I(19, 19); // Testkoordinaten, möglicherweise anpassen
-            player = GetParent().GetNode<CharacterBody2D>("/root/Map/Player");
-            mainCam = GetParent().GetNode<Camera2D>("/root/Map/MainCam");
-        }
-        else
-        {
-            GD.Print("StartRoom existiert nicht oder ist nicht verfügbar.");
-        }
+                NormalRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/NormalRoom.tscn");
+                ShopRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/ShopRoom.tscn");
+                ItemRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/ItemRoom.tscn");
+                MiniBossRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/MiniBossRoom.tscn");
+                BossRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/BossRoom.tscn");
+                
+
+        // Initialisiere das Raumfeld mit einer Größe von 120x120
+        roomFieldArray = new bool[240, 240]; // Beispiel, kann je nach Bedarf angepasst werden
+
+        // Beispiel: Der Raum an Position (0,0) existiert
+        roomFieldArray[0, 0] = true; 
+
+        // Optional: Hier kannst du weitere Räume initialisieren, falls diese dynamisch geladen oder generiert werden
+        // roomFieldArray[1, 0] = true; // Beispiel für einen Raum
     }
 
-    // Beispiel zur Überprüfung der Raumkoordinaten
-public bool IsRoomGenerated(string direction)
-{
-    GD.Print($"Aktuelle Koordinaten: X = {playerLastRoom.X}, Y = {playerLastRoom.Y}");
-
-    // Überprüfen, ob der Zugriff auf das Array gültig ist
-    int maxX = RoomFieldArray.roomFieldArray.GetLength(0) - 1;  // Maximale X-Koordinate im Array
-    int maxY = RoomFieldArray.roomFieldArray.GetLength(1) - 1;  // Maximale Y-Koordinate im Array
-
-    // Wenn die Koordinaten außerhalb des Arrays liegen, geben wir false zurück
-    if (playerLastRoom.X < 0 || playerLastRoom.X > maxX || playerLastRoom.Y < 0 || playerLastRoom.Y > maxY)
+    // Überprüfe, ob der Raum an der gegebenen Position existiert
+    public bool IsRoomGenerated(Vector2 position)
     {
-        GD.Print("Ungültige Koordinaten. Die Koordinaten liegen außerhalb des Arrays.");
+        // Berechne die Raumkoordinaten (Index im Raumfeld)
+        int x = (int)(position.X / ROOM_WIDTH);  // Umrechnung der globalen X-Position
+        int y = (int)(position.Y / ROOM_HEIGHT); // Umrechnung der globalen Y-Position
+
+        GD.Print($"Überprüfe Position: {x}, {y}");
+        GD.Print($"Array Dimensionen: {roomFieldArray.GetLength(0)}x{roomFieldArray.GetLength(1)}");
+
+        // Überprüfe, ob die Position im gültigen Bereich des Arrays liegt
+        if (x >= 0 && x < roomFieldArray.GetLength(0) && y >= 0 && y < roomFieldArray.GetLength(1))
+        {
+            GD.Print($"Raum existiert: {roomFieldArray[x, y]}");
+            return roomFieldArray[x, y];
+        }
+
+        GD.Print($"Fehler: Ungültige Position {x}, {y} außerhalb des gültigen Bereichs.");
         return false;
     }
 
-    switch (direction)
-    {
-        case "left":
-            if (playerLastRoom.X > 0)  // Sicherstellen, dass X nicht unter 0 fällt
-            {
-                bool roomExists = RoomFieldArray.roomFieldArray[playerLastRoom.X - 1, playerLastRoom.Y];
-                GD.Print($"Überprüfe Raum nach links an Koordinaten: {playerLastRoom.X - 1}, {playerLastRoom.Y}, Raum vorhanden: {roomExists}");
-
-                if (roomExists)
-                    return true;
-            }
-            GD.Print($"Kein Raum nach links an Koordinaten: {playerLastRoom.X - 1}, {playerLastRoom.Y}");
-            return false;
-
-        case "right":
-            if (playerLastRoom.X < maxX)  // Sicherstellen, dass X nicht das Array überschreitet
-            {
-                bool roomExists = RoomFieldArray.roomFieldArray[playerLastRoom.X + 1, playerLastRoom.Y];
-                GD.Print($"Überprüfe Raum nach rechts an Koordinaten: {playerLastRoom.X + 1}, {playerLastRoom.Y}, Raum vorhanden: {roomExists}");
-
-                if (roomExists)
-                    return true;
-            }
-            GD.Print($"Kein Raum nach rechts an Koordinaten: {playerLastRoom.X + 1}, {playerLastRoom.Y}");
-            return false;
-
-        case "up":
-            if (playerLastRoom.Y > 0)  // Sicherstellen, dass Y nicht unter 0 fällt
-            {
-                bool roomExists = RoomFieldArray.roomFieldArray[playerLastRoom.X, playerLastRoom.Y - 1];
-                GD.Print($"Überprüfe Raum nach oben an Koordinaten: {playerLastRoom.X}, {playerLastRoom.Y - 1}, Raum vorhanden: {roomExists}");
-
-                if (roomExists)
-                    return true;
-            }
-            GD.Print($"Kein Raum nach oben an Koordinaten: {playerLastRoom.X}, {playerLastRoom.Y - 1}");
-            return false;
-
-        case "down":
-            if (playerLastRoom.Y < maxY)  // Sicherstellen, dass Y nicht das Array überschreitet
-            {
-                bool roomExists = RoomFieldArray.roomFieldArray[playerLastRoom.X, playerLastRoom.Y + 1];
-                GD.Print($"Überprüfe Raum nach unten an Koordinaten: {playerLastRoom.X}, {playerLastRoom.Y + 1}, Raum vorhanden: {roomExists}");
-
-                if (roomExists)
-                    return true;
-            }
-            GD.Print($"Kein Raum nach unten an Koordinaten: {playerLastRoom.X}, {playerLastRoom.Y + 1}");
-            return false;
-
-        default:
-            return false;
-    }
-}
-
-
-    // Methode für die Kollision des Spielers, um zu überprüfen, ob der Raum geräumt wurde
+    // Wenn der Spieler in einen neuen Raum eintritt
     public void BodyEntered(Node2D area, string test)
     {
         isRoomCleared = true;
+        bool canTeleport = false;
 
         if (isRoomCleared)
         {
-            Vector2 addPlayerPosition = new Vector2(0, 0);
+            Vector2 addPlayerPosition = new Vector2(0, 0);  
             Vector2 addCameraPosition = new Vector2(0, 0);
             Vector2 targetPlayerPosition = player.GlobalPosition;
             Vector2 targetCameraPosition = mainCam.Position;
 
-            bool canTeleport = false; // Flag auf false setzen, bis ein Raum gefunden wird
-            GD.Print("fsef");
+            GD.Print("Teleport-Test");
+
+            // Beispiel für die zu überprüfende Raum-Position
+            Vector2 targetRoomPosition = player.GlobalPosition;
 
             switch (test)
             {
                 case "LeftBorder":
-                    if (IsRoomGenerated("left"))
+                    targetRoomPosition = new Vector2(player.GlobalPosition.X - ROOM_WIDTH, player.GlobalPosition.Y);
+                    if (IsRoomGenerated(targetRoomPosition))
                     {
-                        addCameraPosition = new Vector2(-576, 0);
-                        addPlayerPosition = new Vector2(-160, 0);
+                        addCameraPosition = new Vector2(-ROOM_WIDTH, 0);
+                        addPlayerPosition = new Vector2(-160, 0); 
                         targetPlayerPosition = player.GlobalPosition + addPlayerPosition;
                         targetCameraPosition = mainCam.Position + addCameraPosition;
-                        GD.Print("links");
-                        playerLastRoom = new Vector2I(playerLastRoom.X - 1, playerLastRoom.Y);
+                        GD.Print("Links");
+                        playerLastRoom = new Vector2I(playerLastRoom.X - 1, playerLastRoom.Y); // Update der Raumkoordinaten
                         canTeleport = true;
                     }
                     break;
 
                 case "TopBorder":
-                    if (IsRoomGenerated("up"))
+                    targetRoomPosition = new Vector2(player.GlobalPosition.X, player.GlobalPosition.Y - ROOM_HEIGHT);
+                    if (IsRoomGenerated(targetRoomPosition))
                     {
-                        addCameraPosition = new Vector2(0, -324);
-                        addPlayerPosition = new Vector2(0, -100);
+                        addCameraPosition = new Vector2(0, -ROOM_HEIGHT);
+                        addPlayerPosition = new Vector2(0, -100); 
                         targetPlayerPosition = player.GlobalPosition + addPlayerPosition;
                         targetCameraPosition = mainCam.Position + addCameraPosition;
-                        GD.Print("oben");
-                        playerLastRoom = new Vector2I(playerLastRoom.X, playerLastRoom.Y - 1);
+                        GD.Print("Oben");
+                        playerLastRoom = new Vector2I(playerLastRoom.X, playerLastRoom.Y - 1); // Update der Raumkoordinaten
                         canTeleport = true;
                     }
                     break;
 
                 case "RightBorder":
-                    if (IsRoomGenerated("right"))
+                    targetRoomPosition = new Vector2(player.GlobalPosition.X + ROOM_WIDTH, player.GlobalPosition.Y);
+                    if (IsRoomGenerated(targetRoomPosition))
                     {
-                        addCameraPosition = new Vector2(576, 0);
-                        addPlayerPosition = new Vector2(160, 0);
+                        addCameraPosition = new Vector2(ROOM_WIDTH, 0);
+                        addPlayerPosition = new Vector2(160, 0); 
                         targetPlayerPosition = player.GlobalPosition + addPlayerPosition;
                         targetCameraPosition = mainCam.Position + addCameraPosition;
-                        GD.Print("rechts");
-                        playerLastRoom = new Vector2I(playerLastRoom.X + 1, playerLastRoom.Y);
+                        GD.Print("Rechts");
+                        playerLastRoom = new Vector2I(playerLastRoom.X + 1, playerLastRoom.Y); // Update der Raumkoordinaten
                         canTeleport = true;
                     }
                     break;
 
                 case "BottomBorder":
-                    if (IsRoomGenerated("down"))
+                    targetRoomPosition = new Vector2(player.GlobalPosition.X, player.GlobalPosition.Y + ROOM_HEIGHT);
+                    if (IsRoomGenerated(targetRoomPosition))
                     {
-                        addCameraPosition = new Vector2(0, 324);
-                        addPlayerPosition = new Vector2(0, 100);
+                        addCameraPosition = new Vector2(0, ROOM_HEIGHT);
+                        addPlayerPosition = new Vector2(0, 100); 
                         targetPlayerPosition = player.GlobalPosition + addPlayerPosition;
                         targetCameraPosition = mainCam.Position + addCameraPosition;
-                        GD.Print("unten");
-                        playerLastRoom = new Vector2I(playerLastRoom.X, playerLastRoom.Y + 1);
+                        GD.Print("Unten");
+                        playerLastRoom = new Vector2I(playerLastRoom.X, playerLastRoom.Y + 1); // Update der Raumkoordinaten
                         canTeleport = true;
+                
                     }
                     break;
             }
@@ -185,13 +155,13 @@ public bool IsRoomGenerated(string direction)
             }
             else
             {
-                GD.Print("Kein Raum an dieser Position existiert.");
+                GD.Print("Kein Raum an dieser Position.");
             }
         }
     }
 
     public override void _Process(double delta)
     {
-        // Hier könnte fortlaufender Code stehen, wenn nötig
+        // Hier kannst du laufend Updates einfügen, falls nötig
     }
 }

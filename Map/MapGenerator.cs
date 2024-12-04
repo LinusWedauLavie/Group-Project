@@ -39,9 +39,9 @@ public partial class MapGenerator : Node2D
         BossRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/BossRoom.tscn");
 
         // Sicherstellen, dass der Startraum korrekt markiert ist
-        RoomFieldArray.roomFieldArray[19, 19] = true;  // startposition
+        RoomFieldArray.roomFieldArray[0, 0] = true;  // startposition
 
-        lastRoomVector = new Vector2I(19, 19);
+        lastRoomVector = new Vector2I(0, 0);
         Generator();
     }
 
@@ -113,12 +113,14 @@ public partial class MapGenerator : Node2D
         // Sicherstellen, dass der Index innerhalb der gültigen Grenzen liegt
         if (lastRoomVector.X >= 0 && lastRoomVector.X < RoomFieldArray.roomFieldArray.GetLength(0) &&
             lastRoomVector.Y >= 0 && lastRoomVector.Y < RoomFieldArray.roomFieldArray.GetLength(1))
+        
         {
             RoomFieldArray.roomFieldArray[lastRoomVector.X, lastRoomVector.Y] = true;
         }
         else
         {
             GD.PrintErr($"Ungültige Raumkoordinaten: ({lastRoomVector.X}, {lastRoomVector.Y})");
+            
         }
 
         // Aktualisieren der Position für den nächsten Raum
@@ -127,9 +129,11 @@ public partial class MapGenerator : Node2D
 
         roomCount++;
         GD.Print($"Raum vom Typ {currentRoomType} generiert");
+        
 
         // Rekursive Ausführung zur Generierung weiterer Räume
         if (roomCount < maxRooms)
+        
         {
             Generator();
         }
@@ -153,6 +157,7 @@ public partial class MapGenerator : Node2D
         {
             return new Vector2I(576, 0);  // Standard für normale Räume
         }
+        
     }
 
     public override void _Process(double delta)
