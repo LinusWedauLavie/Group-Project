@@ -41,7 +41,7 @@ public partial class HealthComponent : Node2D
         if (health <= 0)
         {
             DropCoin();
-            GetParent().QueueFree(); 
+            GetParent().QueueFree();
         }
     }
 
@@ -52,9 +52,18 @@ public partial class HealthComponent : Node2D
             GD.Print("Dropping coin...");
             Coin coin = (Coin)coinScene.Instantiate();
 
-            GetParent().AddChild(coin);
+            if (GetParent() is Node2D parentNode)
+            {
+                coin.GlobalPosition = parentNode.GlobalPosition;
+            }
+            else
+            {
+                GD.Print("Parent is not a Node2D!");
+            }
 
-            GD.Print("Coin dropped at: " + coin.Position);
+            GetParent().GetParent().AddChild(coin);
+
+            GD.Print("Coin dropped at: " + coin.GlobalPosition);
         }
         else
         {

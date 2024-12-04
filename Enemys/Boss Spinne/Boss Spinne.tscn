@@ -1,46 +1,50 @@
 [gd_scene load_steps=9 format=3 uid="uid://dm8exkjfnpsrt"]
 
-[ext_resource type="Script" path="res://Enemys/EnemyMovementToPlayer.cs" id="1_eir80"]
-[ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="1_shaw0"]
-[ext_resource type="PackedScene" uid="uid://cbrb4qkbaq7jm" path="res://Components/AttackComponentEnemy/AttackComponentEnemy.tscn" id="2_8o4t6"]
-[ext_resource type="PackedScene" uid="uid://cbtrqf54efh2v" path="res://Components/HealthComponents/HealthComponent.tscn" id="3_dh60k"]
-[ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="4_ujyqb"]
+[ext_resource type="Script" path="res://Enemys/EnemyMovementToPlayer.cs" id="1_au2n8"]
+[ext_resource type="Texture2D" uid="uid://j3ilav811wpl" path="res://icon.svg" id="2_qvjoc"]
+[ext_resource type="PackedScene" uid="uid://cbrb4qkbaq7jm" path="res://Components/AttackComponentEnemy/AttackComponentEnemy.tscn" id="3_wccwn"]
+[ext_resource type="PackedScene" uid="uid://cbtrqf54efh2v" path="res://Components/HealthComponents/HealthComponent.tscn" id="4_cvf34"]
+[ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="5_ro2tk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n6fu0"]
+size = Vector2(158, 113)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v0v6n"]
-size = Vector2(136.25, 103)
+size = Vector2(159.125, 114.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ho606"]
-size = Vector2(136, 106)
+size = Vector2(158, 116)
 
 [node name="Node2D" type="CharacterBody2D"]
-script = ExtResource("1_eir80")
+script = ExtResource("1_au2n8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -8.5)
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_n6fu0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-0.999996, -3)
-scale = Vector2(1.04688, 0.8125)
-texture = ExtResource("1_shaw0")
+position = Vector2(-9.53674e-07, 1)
+scale = Vector2(1.21875, 0.921875)
+texture = ExtResource("2_qvjoc")
 
-[node name="AttackComponentEnemy" parent="." instance=ExtResource("2_8o4t6")]
+[node name="AttackComponentEnemy" parent="." instance=ExtResource("3_wccwn")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponentEnemy"]
-position = Vector2(-1, -3)
+position = Vector2(0.4375, 0.75)
 shape = SubResource("RectangleShape2D_v0v6n")
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_dh60k")]
+[node name="HealthComponent" parent="." instance=ExtResource("4_cvf34")]
 max_Health = 20
 
 [node name="ProgressBar" type="ProgressBar" parent="HealthComponent"]
-offset_right = 4.0
-offset_bottom = 27.0
+offset_left = -78.0
+offset_top = -83.0
+offset_right = 81.0
+offset_bottom = -56.0
+value = 100.0
 
-[node name="HitBoxComponent" parent="." instance=ExtResource("4_ujyqb")]
+[node name="HitBoxComponent" parent="." instance=ExtResource("5_ro2tk")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
-position = Vector2(-1.5, -3)
+position = Vector2(3, 2)
 shape = SubResource("RectangleShape2D_ho606")

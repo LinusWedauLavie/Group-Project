@@ -1,45 +1,63 @@
-[gd_scene load_steps=8 format=3 uid="uid://8jit6yv30sic"]
+[gd_scene load_steps=9 format=3 uid="uid://8jit6yv30sic"]
 
 [ext_resource type="Script" path="res://Enemys/EnemyMovementToPlayer.cs" id="1_1x4w5"]
 [ext_resource type="PackedScene" uid="uid://cbtrqf54efh2v" path="res://Components/HealthComponents/HealthComponent.tscn" id="2_muqxd"]
 [ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="3_b4rkm"]
 [ext_resource type="PackedScene" uid="uid://fe558wbqxfgf" path="res://Coin/Coin.tscn" id="4_71e35"]
 [ext_resource type="PackedScene" uid="uid://cbrb4qkbaq7jm" path="res://Components/AttackComponentEnemy/AttackComponentEnemy.tscn" id="5_wpvyp"]
+[ext_resource type="Texture2D" uid="uid://bgoehbcsnt7mv" path="res://f47d7ncf.bmp" id="6_smqd1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_seac4"]
-size = Vector2(22, 6)
+size = Vector2(130.042, 79.375)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwry"]
-size = Vector2(24, 8)
+size = Vector2(131, 80.3906)
 
 [node name="Ratte_Enemy" type="CharacterBody2D"]
+position = Vector2(226, 141)
 collision_layer = 4
 script = ExtResource("1_1x4w5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-285, -266)
+scale = Vector2(1.01557, 0.647446)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-286, -266)
 shape = SubResource("RectangleShape2D_seac4")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("2_muqxd")]
+position = Vector2(586, 8)
 healthBar = NodePath("ProgressBar")
 coinScene = ExtResource("4_71e35")
 
 [node name="ProgressBar" type="ProgressBar" parent="HealthComponent"]
-offset_right = 64.0
-offset_bottom = 27.0
+offset_left = -937.0
+offset_top = -342.0
+offset_right = -807.0
+offset_bottom = -315.0
+value = 100.0
 
 [node name="HitBoxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_b4rkm")]
+position = Vector2(251, 225)
 collision_layer = 8
 collision_mask = 0
 healthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+position = Vector2(-537.021, -490.688)
 shape = SubResource("RectangleShape2D_seac4")
 
 [node name="AttackComponentEnemy" parent="." instance=ExtResource("5_wpvyp")]
+position = Vector2(407, 22)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponentEnemy"]
+position = Vector2(-693.5, -289.195)
 shape = SubResource("RectangleShape2D_ldwry")
+
+[node name="F47d7Ncf" type="Sprite2D" parent="."]
+position = Vector2(-285.75, -267.75)
+scale = Vector2(0.128418, 0.0795898)
+texture = ExtResource("6_smqd1")
