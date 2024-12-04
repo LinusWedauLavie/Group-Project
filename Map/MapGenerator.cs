@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public enum RoomType
 {
@@ -12,39 +13,27 @@ public enum RoomType
 
 public partial class MapGenerator : Node2D
 {
-    public Node2D lastRoom;
-    public Node2D shouldPlacedRoom;
+    // Verweise auf die Szenen für verschiedene Raumtypen
     public PackedScene NormalRoom;
     public PackedScene ShopRoom;
     public PackedScene ItemRoom;
     public PackedScene MiniBossRoom;
     public PackedScene BossRoom;
 
-    Vector2I lastRoomVector = new Vector2I();
-    int maxRooms = 10;  // maximale anzahl an räumen
-    int roomCount = 0;  // zähler für generierte räume
-
+    // Aktueller Raumtyp
     public RoomType currentRoomType;
 
-    public override void _Ready()
-    {
-        Node2D startRoom = (Node2D)GetParent().GetNode("/root/Map/StartRoom");
-        lastRoom = startRoom;
+    // Koordinaten des letzten generierten Raumes
+    private Vector2 lastRoomVector = new Vector2(1, 1);
 
-        // räume laden
-        NormalRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/NormalRoom.tscn");
-        ShopRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/ShopRoom.tscn");
-        ItemRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/ItemRoom.tscn");
-        MiniBossRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/MiniBossRoom.tscn");
-        BossRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/BossRoom.tscn");
+    // Maximale Anzahl an Räumen und Zähler
+    private int maxRooms = 10;
+    private int roomCount = 0;
 
-        // Sicherstellen, dass der Startraum korrekt markiert ist
-        RoomFieldArray.roomFieldArray[0, 0] = true;  // startposition
+    // Dictionary für existierende Räume
+    public Dictionary<Vector2, Node2D> existingRooms = new Dictionary<Vector2, Node2D>();
 
-        lastRoomVector = new Vector2I(0, 0);
-        Generator();
-    }
-
+    // Methode, um einen zufälligen Raumtyp zu bestimmen
     public RoomType GetRandomRoomType()
     {
         Random random = new Random();
@@ -72,95 +61,150 @@ public partial class MapGenerator : Node2D
         }
     }
 
-    public void Generator()
+    // Überprüft, ob ein Raum an den gegebenen Koordinaten existiert
+    public bool RoomExists(Vector2 coordinates)
+    {
+        return existingRooms.ContainsKey(coordinates);
+    }
+
+    // Erstelle einen Raum an den angegebenen Koordinaten
+    public void CreateRoom(Vector2 coordinates)
+    {
+        Node2D newRoom = new Node2D();
+        newRoom.Position = new Vector2(coordinates.X * 512, coordinates.Y * 512); // Setze die Position
+        existingRooms[coordinates] = newRoom; // Füge den Raum zum Dictionary hinzu
+        AddChild(newRoom); // Füge den Raum zur Szene hinzu
+    }
+
+    // Füge einen Raum hinzu, falls er nicht existiert
+    public void AddRoom(Vector2I coordinates)
+    {
+        if (!RoomExists(coordinates))
+        {
+            CreateRoom(coordinates);
+        }
+    }
+    public override void _Ready()
+    {
+        // Räume laden
+        NormalRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/NormalRoom.tscn");
+        ShopRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/ShopRoom.tscn");
+        ItemRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/ItemRoom.tscn");
+        MiniBossRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/MiniBossRoom.tscn");
+        BossRoom = ResourceLoader.Load<PackedScene>("res://Map/Scenes/BossRoom.tscn");
+        }
+
+        // Generiere die Räume
+
+    // Generator für die Räume
+    public void AnotherGenerator()
     {
         if (roomCount >= maxRooms)
         {
-            GD.Print("Maximale Raumanzahl erreicht");
+            GD.Print("Maximale Raumanzahl erreicht.");
             return;
         }
 
         currentRoomType = GetRandomRoomType();
 
-        // Wähle das passende Szenenobjekt basierend auf dem Raumtyp
+        // Bestimme die passende Szene basierend auf dem Raumtyp
+        Node2D roomToPlace = null;
         switch (currentRoomType)
         {
             case RoomType.Shop:
-                shouldPlacedRoom = (Node2D)ShopRoom.Instantiate();
+                roomToPlace = (Node2D)ShopRoom.Instantiate();
                 break;
             case RoomType.Item:
-                shouldPlacedRoom = (Node2D)ItemRoom.Instantiate();
+                roomToPlace = (Node2D)ItemRoom.Instantiate();
                 break;
             case RoomType.MiniBoss:
-                shouldPlacedRoom = (Node2D)MiniBossRoom.Instantiate();
+                roomToPlace = (Node2D)MiniBossRoom.Instantiate();
                 break;
             case RoomType.Boss:
-                shouldPlacedRoom = (Node2D)BossRoom.Instantiate();
+                roomToPlace = (Node2D)BossRoom.Instantiate();
                 break;
             default:
-                shouldPlacedRoom = (Node2D)NormalRoom.Instantiate();
+                roomToPlace = (Node2D)NormalRoom.Instantiate();
                 break;
         }
 
+        // Berechne den Offset für den nächsten Raum
         Vector2I roomOffset = GetRoomOffset(currentRoomType);
-
-        shouldPlacedRoom.Position = roomOffset;
-        lastRoom.AddChild(shouldPlacedRoom);
-
-        // Berechnung der neuen Raumposition
-        lastRoom = shouldPlacedRoom;
-
-        // Sicherstellen, dass der Index innerhalb der gültigen Grenzen liegt
-        if (lastRoomVector.X >= 0 && lastRoomVector.X < RoomFieldArray.roomFieldArray.GetLength(0) &&
-            lastRoomVector.Y >= 0 && lastRoomVector.Y < RoomFieldArray.roomFieldArray.GetLength(1))
         
+        // Update der Koordinaten des letzten Raums basierend auf dem Offset
+        lastRoomVector.X += roomOffset.X;
+        lastRoomVector.Y += roomOffset.Y;
+
+        // Überprüfen, ob die Koordinaten innerhalb des erlaubten Bereichs liegen
+        if (lastRoomVector.X >= 0 && lastRoomVector.Y >= 0 && lastRoomVector.X < 10 && lastRoomVector.Y < 10)
         {
-            RoomFieldArray.roomFieldArray[lastRoomVector.X, lastRoomVector.Y] = true;
+            roomToPlace.Position = new Vector2(lastRoomVector.X * 512, lastRoomVector.Y * 512);
+            AddChild(roomToPlace); // Raum zur Szene hinzufügen
+
+            // Füge den Raum zu den bestehenden Räumen hinzu, wenn er noch nicht existiert
+            if (!existingRooms.ContainsKey(lastRoomVector))
+            {
+                existingRooms.Add(lastRoomVector, roomToPlace);
+            }
+
+            roomCount++;
+            GD.Print($"Raum vom Typ {currentRoomType} an den Koordinaten ({lastRoomVector.X}, {lastRoomVector.Y}) generiert.");
         }
         else
         {
             GD.PrintErr($"Ungültige Raumkoordinaten: ({lastRoomVector.X}, {lastRoomVector.Y})");
-            
         }
 
-        // Aktualisieren der Position für den nächsten Raum
-        lastRoomVector.X += roomOffset.X;
-        lastRoomVector.Y += roomOffset.Y;
-
-        roomCount++;
-        GD.Print($"Raum vom Typ {currentRoomType} generiert");
-        
-
-        // Rekursive Ausführung zur Generierung weiterer Räume
+        // Rekursiv den nächsten Raum generieren
         if (roomCount < maxRooms)
-        
         {
-            Generator();
+            AnotherGenerator();
         }
     }
-
     private Vector2I GetRoomOffset(RoomType roomType)
     {
+        // Beispielhafte Offsets basierend auf dem Raumtyp
         if (roomType == RoomType.Shop || roomType == RoomType.Item)
         {
-            return new Vector2I(576, 0);  // Beispiel: Bewege nach rechts
+            return new Vector2I(1, 0);  // Bewege nach rechts
         }
         else if (roomType == RoomType.MiniBoss)
         {
-            return new Vector2I(0, 324);  // Beispiel: Bewege nach unten
+            return new Vector2I(0, 1);  // Bewege nach unten
         }
         else if (roomType == RoomType.Boss)
         {
-            return new Vector2I(0, -324);  // Beispiel: Bewege nach oben
+            return new Vector2I(0, -1);  // Bewege nach oben
         }
         else
         {
-            return new Vector2I(576, 0);  // Standard für normale Räume
+            return new Vector2I(1, 0);  // Standardbewegung nach rechts
         }
-        
     }
+
+    // Berechnet den Offset des nächsten Raums basierend auf dem Raumtyp
+
+    // Gibt die Koordinaten des letzten Raums zurück
+    public Vector2 GetLastRoomPosition()
+    {
+        return lastRoomVector;
+    }
+
+    // Setzt die Position des letzten Raums
+    public void SetRoomPosition(Vector2 newRoomPosition)
+    {
+        lastRoomVector = newRoomPosition;
+    }
+
+    Generator generator;
 
     public override void _Process(double delta)
     {
+        // Falls benötigt, kann hier Logik für das laufende Spiel hinzugefügt werden.
     }
+
+    private class Generator
+    {
+    }
+
 }

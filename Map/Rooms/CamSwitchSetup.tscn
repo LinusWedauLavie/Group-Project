@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Map/CamSwitch.cs" id="1_7inos"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_btw61"]
-size = Vector2(0.5, 104)
+size = Vector2(3.75, 104)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlahm"]
 size = Vector2(308.324, 5.45248)
@@ -15,6 +15,7 @@ size = Vector2(0.8125, 128)
 size = Vector2(141, 1)
 
 [node name="CamSwitch" type="Node2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_7inos")
 
 [node name="LeftBorder" type="Area2D" parent="."]
@@ -22,7 +23,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBorder"]
-position = Vector2(-282, 0)
+position = Vector2(-284.125, 0)
 shape = SubResource("RectangleShape2D_btw61")
 
 [node name="TopBorder" type="Area2D" parent="."]
