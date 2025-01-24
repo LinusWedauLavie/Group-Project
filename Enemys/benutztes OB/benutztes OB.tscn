@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c7nk7wu34l2m7" path="res://Components/HitBoxComponent/HitBoxComponent.tscn" id="5_vo3be"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gyjx"]
+size = Vector2(211, 130)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svcwv"]
 size = Vector2(207.25, 131.5)
@@ -19,11 +20,11 @@ script = ExtResource("1_c5xkd")
 speed = 15.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, -7)
+position = Vector2(2.5, 0)
 shape = SubResource("RectangleShape2D_8gyjx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(17.0312, 12)
+position = Vector2(1, 1.00003)
 scale = Vector2(1.60889, 1.04102)
 texture = ExtResource("2_2td4o")
 
@@ -31,7 +32,7 @@ texture = ExtResource("2_2td4o")
 attackDamage = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponentEnemy"]
-position = Vector2(17.375, 12.25)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_svcwv")
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_hhthk")]
@@ -39,14 +40,15 @@ position = Vector2(0, -81)
 max_Health = 125
 
 [node name="ProgressBar" type="ProgressBar" parent="HealthComponent"]
-offset_left = -88.0
-offset_top = -1.0
-offset_right = 121.0
-offset_bottom = 26.0
+offset_left = -101.0
+offset_top = -17.0
+offset_right = 108.0
+offset_bottom = 10.0
 value = 100.0
 
 [node name="HitBoxComponent" parent="." instance=ExtResource("5_vo3be")]
+position = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
-position = Vector2(19, 11)
+position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_6afkj")

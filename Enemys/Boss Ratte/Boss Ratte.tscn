@@ -36,14 +36,14 @@ position = Vector2(-1.5625, -3.25)
 shape = SubResource("RectangleShape2D_v0v6n")
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_ooe25")]
-position = Vector2(159, 149)
+position = Vector2(7, 16)
 max_Health = 200
 
 [node name="ProgressBar" type="ProgressBar" parent="HealthComponent"]
-offset_left = -256.0
-offset_top = -246.0
-offset_right = -63.0
-offset_bottom = -210.0
+offset_left = -103.0
+offset_top = -115.0
+offset_right = 90.0
+offset_bottom = -79.0
 value = 100.0
 
 [node name="HitBoxComponent" parent="." instance=ExtResource("5_03ef1")]

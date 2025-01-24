@@ -55,6 +55,7 @@ public partial class AttackComponentPlayer : Area2D
 		{
 			enemyHitBox.GiveOwnDamage(damage);
 		}
+		//TODO call deffered
 		attackCollision.Disabled = true;
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

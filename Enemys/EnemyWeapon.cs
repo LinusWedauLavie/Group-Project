@@ -16,6 +16,7 @@ public partial class EnemyWeapon : Node2D
     {
         if (area.HasMethod("GiveOwnDamage"))
         {
+            GD.Print("test2134234");
             areaExited = false;
             GiveDamage();
             timer.Start();

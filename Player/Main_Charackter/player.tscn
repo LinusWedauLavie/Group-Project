@@ -55,11 +55,12 @@ position = Vector2(27.9783, 1.48852)
 rotation = 1.58825
 texture = ExtResource("6_riqbj")
 
-[node name="HealthComponent" parent="." instance=ExtResource("6_kwgl6")]
-max_Health = 100
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("6_kwgl6")]
+healthBar = NodePath("ProgressBar")
 
 [node name="ProgressBar" type="ProgressBar" parent="HealthComponent"]
-offset_left = 118.0
-offset_top = -59.0
-offset_right = 235.0
-offset_bottom = -32.0
+offset_left = -22.0
+offset_top = -38.0
+offset_right = 18.0
+offset_bottom = -11.0
+value = 100.0

@@ -45,8 +45,8 @@ offset_bottom = -82.0
 value = 100.0
 
 [node name="HitBoxComponent" parent="." instance=ExtResource("5_2832h")]
-position = Vector2(61, 98)
+position = Vector2(-4, 19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
-position = Vector2(-60, -102)
+position = Vector2(6, -20)
 shape = SubResource("RectangleShape2D_ho606")

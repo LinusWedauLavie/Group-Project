@@ -13,6 +13,7 @@ public partial class HealthComponent : Node2D
 
     public override void _Ready()
     {
+        healthBar = GetNode<ProgressBar>("ProgressBar");
         health = max_Health;
 
         if (healthBar != null)

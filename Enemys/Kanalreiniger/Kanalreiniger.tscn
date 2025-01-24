@@ -20,11 +20,11 @@ script = ExtResource("1_2sq43")
 speed = 25.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(12, -8.5)
+position = Vector2(-2, -1)
 shape = SubResource("RectangleShape2D_n6fu0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(12.8125, -5.4375)
+position = Vector2(-2, -3)
 scale = Vector2(1.64355, 0.696289)
 texture = ExtResource("2_d2r1p")
 
@@ -32,23 +32,23 @@ texture = ExtResource("2_d2r1p")
 attackDamage = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponentEnemy"]
-position = Vector2(12.4844, -6.5625)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_v0v6n")
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_vfwof")]
-position = Vector2(107, 130)
+position = Vector2(-4, -4)
 max_Health = 125
 
 [node name="ProgressBar" type="ProgressBar" parent="HealthComponent"]
-offset_left = -201.0
-offset_top = -216.0
-offset_right = 9.0
-offset_bottom = -182.0
+offset_left = -103.0
+offset_top = -76.0
+offset_right = 107.0
+offset_bottom = -42.0
 value = 100.0
 
 [node name="HitBoxComponent" parent="." instance=ExtResource("5_h5yqj")]
-position = Vector2(40, -13)
+position = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
-position = Vector2(-28.0625, 6.375)
+position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_ho606")
